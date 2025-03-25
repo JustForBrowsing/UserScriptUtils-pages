@@ -27,7 +27,7 @@
 
 console.log("Starting UserScriptUtils:" + testVar);
 
-const RestoreWindowsConsole = (appId) => {
+function RestoreWindowsConsole(appId) => {
     try {
         const ogWindow = document.createElement('iframe');
         ogWindow.style.display = 'none';
