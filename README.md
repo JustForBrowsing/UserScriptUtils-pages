@@ -7,7 +7,7 @@
   Add your open source license, GitHub uses MIT license.
 -->
 
-# GitHub Pages
+# UserScriptUtils GitHub Page
 
 Just used to deploy the UserScriptUtils.js file during its development
 
