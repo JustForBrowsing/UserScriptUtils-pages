@@ -27,8 +27,9 @@
 
 console.log("Starting UserScriptUtils:" + testVar);
 
-function RestoreWindowsConsole(appId) {
+function RestoreWindowsConsole(appId = "app???") {
     try {
+     /*
         const ogWindow = document.createElement('iframe');
         ogWindow.style.display = 'none';
         document.body.appendChild(ogWindow);
@@ -42,6 +43,7 @@ function RestoreWindowsConsole(appId) {
             // If we aren't loading it, then delete the unused iframe
             ogWindow.parentNode.removeChild(ogWindow);
         }
+    */
     } catch(err) {
         console.error(`${appId}:RestoreWindowsConsole: error while fixing altered console:`, err);
     }
