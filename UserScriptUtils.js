@@ -25,20 +25,8 @@
 // @require     https://cdn.jsdelivr.net/npm/eruda-monitor@1.1.1/eruda-monitor.min.js#sha256-7HNTeKKc32BEABLUmFkVDlDwYVIStEWenCnBfRSkaM4=
 // @require     https://cdn.jsdelivr.net/npm/eruda-timing@2.0.1/eruda-timing.min.js#sha256-PP95GJLgXsyqfEWOWl9d2DPDsoqUBl54vtczCjmS0Q0=
 
-
-//let testVar = "nope";
 console.log("Starting UserScriptUtils:" + testVar);
-//(function () {
-//    let testVar = "ran';
-//})();
 
-function Test() {
-    let testVar = "Test";
-    console.log("UserScriptUtils:Test " + testVar);
-}
-
-
-/*
 const RestoreWindowsConsole = (appId) => {
     try {
         const ogWindow = document.createElement('iframe');
@@ -58,6 +46,7 @@ const RestoreWindowsConsole = (appId) => {
         console.error(`${appId}:RestoreWindowsConsole: error while fixing altered console:`, err);
     }
 }
+/*
 //fixConsole(appId);
 //console.log(`${appId}:console check complete.`);
 const defaultPosition = { 
