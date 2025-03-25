@@ -27,7 +27,7 @@
 
 
 //let testVar = "nope";
-// console.log("Starting UserScriptUtils:" + testVar);
+console.log("Starting UserScriptUtils:" + testVar);
 //(function () {
 //    let testVar = "ran';
 //})();
