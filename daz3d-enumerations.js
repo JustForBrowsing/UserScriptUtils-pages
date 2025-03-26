@@ -1,4 +1,4 @@
-import Enum from 'https://raw.githubusercontent.com/adrai/enum/master/dist/enum-3.0.4.min.js';
+import 'https://raw.githubusercontent.com/adrai/enum/master/dist/enum-3.0.4.min.js';
 /**
  * Enum for product bundle information
  * @readonly
