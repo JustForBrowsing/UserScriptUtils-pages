@@ -6,34 +6,34 @@
 // ==/UserLibrary=
 const libId = "UserScriptUtils";
 console.log(`%c${libId}: loading...`, 'color:#4060FF;');
-/** 
-  * @module UserScriptUtils
-  */
 
-/* Include the following lines in your ==UserScript== block
-  // @require     https://raw.githubusercontent.com/JustForBrowsing/UserScriptUtils/refs/heads/main/UserScriptUtils.js
-  // @require     https://cdn.jsdelivr.net/npm/eruda@3.4.1/eruda.min.js#sha256-bfOAXaBm8tuuqlR7TKg/pcfBDKi2ukNXsIl788w7mh8=
-  // @require     https://cdn.jsdelivr.net/npm/eruda-code@2.2.0/eruda-code.min.js#sha256-QKv2Ow4Dvamh4teg/CpaSA0drpNKyqVUDv4bn0J8a78=
-  // @require     https://cdn.jsdelivr.net/npm/eruda-monitor@1.1.1/eruda-monitor.min.js#sha256-7HNTeKKc32BEABLUmFkVDlDwYVIStEWenCnBfRSkaM4=
-  // @require     https://cdn.jsdelivr.net/npm/eruda-timing@2.0.1/eruda-timing.min.js#sha256-PP95GJLgXsyqfEWOWl9d2DPDsoqUBl54vtczCjmS0Q0=
-  // @grant       GM_getValue
-  // @grant       GM_setValue
-  // @grant       GM_addStyle
+/* DEPENDANCIES:
+    1) Imports (@requires)
+        Include the following lines in the ==UserScript== block of your main User Script.
+        The 'require' for UserScriptUtils.js MUST be LAST.
+            
+        // @require     https://cdn.jsdelivr.net/npm/eruda@3.4.1/eruda.min.js#sha256-bfOAXaBm8tuuqlR7TKg/pcfBDKi2ukNXsIl788w7mh8=
+        // @require     https://cdn.jsdelivr.net/npm/eruda-code@2.2.0/eruda-code.min.js#sha256-QKv2Ow4Dvamh4teg/CpaSA0drpNKyqVUDv4bn0J8a78=
+        // @require     https://cdn.jsdelivr.net/npm/eruda-monitor@1.1.1/eruda-monitor.min.js#sha256-7HNTeKKc32BEABLUmFkVDlDwYVIStEWenCnBfRSkaM4=
+        // @require     https://cdn.jsdelivr.net/npm/eruda-timing@2.0.1/eruda-timing.min.js#sha256-PP95GJLgXsyqfEWOWl9d2DPDsoqUBl54vtczCjmS0Q0=
+        // @require     https://raw.githubusercontent.com/JustForBrowsing/UserScriptUtils/refs/heads/main/UserScriptUtils.js
+        
+    2) Globals
+        Declare the imports as globals (adding any addition names needed for the script).
+        This should be included just AFTER ==UserScript== block of your main User Script.
+        
+        // global eruda, erudaCode, erudaMonitor, erudaTiming
+
+    3) Grants (FUTURE)
+        Include the following lines in the ==UserScript== block of your main User Script.
+        
+        // @grant       GM_getValue
+        // @grant       GM_setValue
+        // @grant       GM_addStyle
 */
-
-// Include the following line after the ==UserScript== block to make eslint shut up about eruda:
-/* -nop-global eruda, erudaCode, erudaMonitor, erudaTiming */
-
 /* -nop-global _, CssSelectorGenerator, Enum */
 /* -nop-global eruda, erudaFeatures */
 /* -nop-global DazProductSlab, daz */
-
-// @require     https://cdn.jsdelivr.net/npm/eruda@3.4.1/eruda.min.js#sha256-bfOAXaBm8tuuqlR7TKg/pcfBDKi2ukNXsIl788w7mh8=
-// @require     https://cdn.jsdelivr.net/npm/eruda-code@2.2.0/eruda-code.min.js#sha256-QKv2Ow4Dvamh4teg/CpaSA0drpNKyqVUDv4bn0J8a78=
-// @require     https://cdn.jsdelivr.net/npm/eruda-monitor@1.1.1/eruda-monitor.min.js#sha256-7HNTeKKc32BEABLUmFkVDlDwYVIStEWenCnBfRSkaM4=
-// @require     https://cdn.jsdelivr.net/npm/eruda-timing@2.0.1/eruda-timing.min.js#sha256-PP95GJLgXsyqfEWOWl9d2DPDsoqUBl54vtczCjmS0Q0=
-
-console.log("Starting UserScriptUtils:");
 
 function RestoreWindowsConsole(libId = libId) {
     try {
@@ -62,21 +62,17 @@ function RestoreWindowsConsole(libId = libId) {
     }
 }
 
-//fixConsole(appId);
-//console.log(`${libId}:console check complete.`);
-const defaultPosition = { 
+const DefaultErudaPosition = { 
     x: 5,
     y: window.screen.height / 3,
 };
 function AddEruda(libId = libId, options = {}) {
-    // options = _.defaults(options, {
-    options = {
-          fixConsole: true,
-         displaySize: 55,
-        transparency: 0.95,
-            position: defaultPosition,
-    };
-
+    options = options ?? {};
+    options.fixConsole   = options?.fixConsole   ?? true;
+    options.displaySize  = options?.displaySize  ?? 55;
+    options.transparency = options?.transparency ?? 0.95;
+    options.position     = options?.position     ?? DefaultErudaPosition;
+ 
     try {
         if (options?.fixConsole ?? true) {
              RestoreWindowsConsole(libId);
@@ -121,14 +117,15 @@ function AddEruda(libId = libId, options = {}) {
  
     try {
         window.M3ERUDAINIT = 'configuring';
-        eruda.position(options?.position ?? defaultPosition); // Set the button position
-
+     
         const eConsole = eruda.get('console');
         eConsole.config.set('catchGlobalErr', true);
         eConsole.config.set('asyncRender',    true);
         eConsole.config.set('transparency',   options?.transparency ?? 0.95);
         eConsole.config.set('displaySize',    options?.displaySize ?? 55);
-
+     
+        eruda.position(options?.position ?? DefaultErudaPosition); // Set the button position
+     
         window.M3ERUDAINIT = 'changingToErudaConsole';
         window.console = eConsole;
      
