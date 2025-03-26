@@ -62,7 +62,7 @@ const defaultPosition = {
     x: 5,
     y: window.screen.height / 3,
 };
-function AddEruda(appId, options = {} ) {
+function AddEruda(appId, options = {}) {
     // options = _.defaults(options, {
     options = {
           fixConsole: true,
