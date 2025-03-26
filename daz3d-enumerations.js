@@ -1,4 +1,4 @@
-cons Enum = import('https://raw.githubusercontent.com/adrai/enum/master/dist/enum-3.0.4.min.js');
+const Enum = import('https://raw.githubusercontent.com/adrai/enum/master/dist/enum-3.0.4.min.js');
 /**
  * Enum for product bundle information
  * @readonly
