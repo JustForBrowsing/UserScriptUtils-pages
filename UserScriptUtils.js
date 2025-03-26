@@ -130,7 +130,7 @@ function AddEruda(libId = libId, options = {}) {
         eConsole.config.set('displaySize',    options?.displaySize ?? 55);
 
         window.M3ERUDAINIT = 'changingToErudaConsole';
-        windows.console = eConsole;
+        window.console = eConsole;
      
         window.M3ERUDAINIT = 'running';
      
