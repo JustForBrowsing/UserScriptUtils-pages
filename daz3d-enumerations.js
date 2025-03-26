@@ -265,4 +265,16 @@ ShaderType.enums.forEach((e) => { e.usable = e.value.usable; e.desc = e.value.de
 ShaderType.freezeEnums(); // Permanently freeze the enum
 
 
-)
+
+
+
+
+
+
+
+
+
+
+
+
+
