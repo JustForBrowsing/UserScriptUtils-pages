@@ -54,11 +54,11 @@ function RestoreWindowsConsole(libId = libId) {
             try {
                 ogWindow?.parentNode?.removeChild(ogWindow);
             } catch (err) {
-                console.warn(`${libId}:RestoreWindowsConsole: Unable delete unused iframe, err: ${typeof err}: '${err.message}'.`;
+                console.warn(`${libId}:RestoreWindowsConsole: Unable delete unused iframe, err: ${typeof err}: '${err.message}'.`);
             }
         }
     } catch(err) {
-        console.error(`${libId}:RestoreWindowsConsole: error while fixing altered console:`, err);
+        console.error(`${libId}:RestoreWindowsConsole: error while fixing altered console, err: ${typeof err}: '${err.message}'.`, err);
     }
 }
 
