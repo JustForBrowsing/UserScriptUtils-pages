@@ -5,6 +5,7 @@
 // @description Adds functionality to the Daz3D web site
 // ==/UserLibrary==
 
+const libId = "UserScriptUtils";
 /** 
   * @module UserScriptUtils
   */
@@ -34,35 +35,40 @@
 
 console.log("Starting UserScriptUtils:");
 
-function RestoreWindowsConsole(appId = "app???") {
+function RestoreWindowsConsole(libId = libId) {
     try {
-     /*
         const ogWindow = document.createElement('iframe');
         ogWindow.style.display = 'none';
         document.body.appendChild(ogWindow);
         if (window.console !== ogWindow?.contentWindow?.console &&
             ogWindow?.contentWindow?.console != null) {
-            console.warn(`${appId}:RestoreWindowsConsole: found an altered console:'...', repairing!`);
-            window.console = ogWindow.contentWindow.console;
+            console.warn(`${libId}:RestoreWindowsConsole: found an altered console:'...', repairing!`);
+            if (ogWindow.contentWindow.console && 
+                ogWindow.contentWindow.console.log) {
+                window.console = ogWindow.contentWindow.console;
+            }
             // NOTE: leave the iframe 'open' because it 'owns' the new console
 
         } else {
             // If we aren't loading it, then delete the unused iframe
-            ogWindow.parentNode.removeChild(ogWindow);
+            try {
+                ogWindow?.parentNode?.removeChild(ogWindow);
+            } catch (err) {
+                console.warn(`${libId}:RestoreWindowsConsole: Unable delete unused iframe, err: ${typeof err}: '${err.message}'.`;
+            }
         }
-    */
     } catch(err) {
-        console.error(`${appId}:RestoreWindowsConsole: error while fixing altered console:`, err);
+        console.error(`${libId}:RestoreWindowsConsole: error while fixing altered console:`, err);
     }
 }
 
 //fixConsole(appId);
-//console.log(`${appId}:console check complete.`);
+//console.log(`${libId}:console check complete.`);
 const defaultPosition = { 
     x: 5,
     y: window.screen.height / 3,
 };
-function AddEruda(appId, options = {}) {
+function AddEruda(libId = libId, options = {}) {
     // options = _.defaults(options, {
     options = {
           fixConsole: true,
@@ -73,23 +79,23 @@ function AddEruda(appId, options = {}) {
 
     try {
         if (options?.fixConsole ?? true) {
-             RestoreWindowsConsole(appId);
+             RestoreWindowsConsole(libId);
         }
      
     } catch (err) {
-        const errMsg = `${appId}:AddEruda:Fixing Console: err: ${typeof err}: '${err.message}'.`;
+        const errMsg = `${libId}:AddEruda:Fixing Console: err: ${typeof err}: '${err.message}'.`;
         console.error(errMsg);
         alert(errMsg);
     }
 
     try {
         if (window.M3ERUDAINIT != null) {
-            console.log(`${appId}:AddEruda: Eruda Already Running, Jumping To (Re)Configuring Eruda`);
+            console.log(`${libId}:AddEruda: Eruda Already Running, Jumping To (Re)Configuring Eruda`);
             return;
         
         } else {
             window.M3ERUDAINIT = 'creating';
-            console.log(`${appId}:AddEruda: Starting eruda console...`);
+            console.log(`${libId}:AddEruda: Starting eruda console...`);
             eruda.init({
                    autoScale: true,
                 useShadowDom: true,
@@ -108,7 +114,7 @@ function AddEruda(appId, options = {}) {
             window.M3ERUDAINIT = 'created';
         }
      } catch (err) {
-        const errMsg = `${appId}:AddEruda:Creating Eruda: err: ${typeof err}: '${err.message}'.`;
+        const errMsg = `${libId}:AddEruda:Creating Eruda: err: ${typeof err}: '${err.message}'.`;
         console.error(errMsg);
         alert(errMsg);
     }
@@ -129,15 +135,15 @@ function AddEruda(appId, options = {}) {
         window.M3ERUDAINIT = 'running';
      
     } catch (err) {
-        const errMsg = `${appId}:AddEruda:Configuring Eruda: err: ${typeof err}: '${err.message}'.`;
+        const errMsg = `${libId}:AddEruda:Configuring Eruda: err: ${typeof err}: '${err.message}'.`;
         console.error(errMsg);
         alert(errMsg);
      
     } finally {
-        console.log(`${appId}:AddEruda: ...Complete.`);
+        console.log(`${libId}:AddEruda: ...Complete.`);
     }
 }
-// erudaInit(appId);
+// erudaInit(libId);
 /*
 eruda.init({
          default: {
@@ -164,7 +170,7 @@ if (erudaConsole) {
 /*
 document.addEventListener("touchstart", function() {}, false);
 
-console.log(`%cUserScriptUtils: initialized.`, 'color:#4060FF;');
+console.log(`%c${libId}: initialized.`, 'color:#4060FF;');
 
 exports = {
     RestoreWindowsConsole: RestoreWindowsConsole,
