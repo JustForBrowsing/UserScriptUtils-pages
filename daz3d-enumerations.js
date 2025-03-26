@@ -1,4 +1,4 @@
-const Enum = import('https://raw.githubusercontent.com/adrai/enum/master/dist/enum-3.0.4.min.js');
+// const Enum = import('https://raw.githubusercontent.com/adrai/enum/master/dist/enum-3.0.4.min.js');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -19,16 +19,16 @@ const Enum = import('https://raw.githubusercontent.com/adrai/enum/master/dist/en
  * @enum {string,string}
  */
 const BundleStatus = new Enum({     // enum: { bundle: is a bundle?, desc: "description text" }
-    Invalid:            { bundle:false, desc:"Invalid BundleStatus -- internal error." },
-    Unknown:            { bundle:false, desc:"Bundle status has not been determined (is unknown)" },
-    NotABundle:         { bundle:false, desc:"This item has no sub-items; it is not a bundle." },
-    BundleInFlagOnly:   { bundle:false, desc:"Marked as a bundle but it has no sub-items." },
-    NothingOwned:       { bundle:true,  desc:"No items in this bundle are owned." },
-    PartiallyComplete:  { bundle:true,  desc:"Some items in this bundle are owned." },
-    BundleHasExtras:    { bundle:true,  desc:"All items are owned but the bundle has desired extras" },
-    EffectivelyComplete:{ bundle:true,  desc:"All desired items in this bundle are owned." },
-    FullyComplete:      { bundle:true,  desc:"All items are owned but bundle is not marked as owned)" },
-    Owned:              { bundle:true,  desc:"This bundle is owned and is fully complete." },
+        Invalid:            { bundle:false, desc:"Invalid BundleStatus -- internal error." },
+        Unknown:            { bundle:false, desc:"Bundle status has not been determined (is unknown)" },
+        NotABundle:         { bundle:false, desc:"This item has no sub-items; it is not a bundle." },
+        BundleInFlagOnly:   { bundle:false, desc:"Marked as a bundle but it has no sub-items." },
+        NothingOwned:       { bundle:true,  desc:"No items in this bundle are owned." },
+        PartiallyComplete:  { bundle:true,  desc:"Some items in this bundle are owned." },
+        BundleHasExtras:    { bundle:true,  desc:"All items are owned but the bundle has desired extras" },
+        EffectivelyComplete:{ bundle:true,  desc:"All desired items in this bundle are owned." },
+        FullyComplete:      { bundle:true,  desc:"All items are owned but bundle is not marked as owned)" },
+        Owned:              { bundle:true,  desc:"This bundle is owned and is fully complete." },
     }, 
     { name: 'BundleStatus', ignoreCase: true, freeze: false }
 );
