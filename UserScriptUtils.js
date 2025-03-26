@@ -3,9 +3,9 @@
 // @author      Me
 // @version     0.1.0
 // @description Adds functionality to the Daz3D web site
-// ==/UserLibrary==
-
+// ==/UserLibrary=
 const libId = "UserScriptUtils";
+console.log(`%c${libId}: loading...`, 'color:#4060FF;');
 /** 
   * @module UserScriptUtils
   */
@@ -143,43 +143,550 @@ function AddEruda(libId = libId, options = {}) {
         console.log(`${libId}:AddEruda: ...Complete.`);
     }
 }
-// erudaInit(libId);
-/*
-eruda.init({
-         default: {
-    transparency: 0.95,
-     displaySize: 55,
-           theme: 'Dark',
-  }
-});
-eruda.add(erudaCode);
-eruda.add(erudaMonitor);
-eruda.add(erudaTiming);
-eruda.position({ x: 5, 
-                 y: window.screen.height / 3 });
-eruda.get().config.set('displaySize', 55);
 
-// Replace normal console with the eruda console (for the UserScript window, at least).
-const erudaConsole = eruda.get('console');
-if (erudaConsole) {
-    window.console = erudaConsole
+class USL {
+    static validJsonStartRe =
+              new RegExp(/^\s*("?(\d+|[^a-zA-Z0-9]true\s|[^a-zA-Z0-9]false\s)"?)|\{|\[|""/, 'i');
+    /* This comment fixes the incorrect syntax highlighting (bug) caused by the string above. */
+
+    static buildInlineErrorStr(errorIn) {
+        const localError  = errorIn;
+        if (localError == null) {
+            return `error:<buildInlineErrorStr: error input was null>`;
+
+        } else if (localError instanceof Error) {
+            return `error:${localError},\nmessage:${localError?.message},\nstack:${localError?.stack}`;
+
+        } else {
+            const errorInType = typeof errorIn;
+            const objNameStr = '/' + ('object' === errorInType) ?
+                                      localError?.constructor?.name :
+                                      '';
+            return `error:'${String(localError)} [${errorInType}${objNameStr}]'`;
+        }
+    }
+
+    static sessionStorageGet(key, displayErrors = null) {
+        displayErrors = displayErrors ?? true;
+        let value = null;
+        try {
+            let rawValue = sessionStorage.getItem(key);
+            if (rawValue != null && USL.validJsonStartRe.test(rawValue)) {
+                value = JSON.parse(rawValue);
+            } else {
+                value = rawValue;
+            }
+        } catch (err) {
+            if (displayErrors) {
+                console.error(`${appId}:USL.sessionStorageGet: Error, err:${this.buildInlineErrorStr(err)}`);
+            }
+            value = null;
+        }
+        return value;
+    }
+
+    static sessionStoragePut(key, value, displayErrors = null) {
+        displayErrors = displayErrors ?? false;
+        try {
+            sessionStorage.setItem(key, JSON.stringify(value));
+        } catch (err) {
+            if (displayErrors) {
+                console.error(`${appId}:USL.sessionStoragePut: Error, err:${this.buildInlineErrorStr(err)}`);
+            }
+        }
+    }
+
+    /*
+     * @example
+     *      injectStyleBlock(cssString, 'new-css-block-id')
+     */
+    static injectStyleBlock(cssStringOrElem,
+                            styleBlockId = null,
+                            styleAttributes = null,
+                            parentElem = null) {
+        if ('object' === typeof styleBlockId && styleAttributes == null) {
+            styleAttributes = styleBlockId;
+            styleBlockId    = null;
+        }
+        const styleAttr = Object.assign({}, { id: styleBlockId }, styleAttributes);
+        return this.#injectStyleCore(cssStringOrElem, styleAttr, 'style', parentElem);
+    }
+
+    /*
+     * @example
+     *      injectStyleUrl('https://someCdn.com/path/some.css', 'new-css-block-id')
+     */
+    static injectStyleUrl(cssUrl,
+                          styleBlockId = null,
+                          styleAttributes = null,
+                          parentElem = null) {
+        if ('object' === typeof styleBlockId && styleAttributes == null) {
+            styleAttributes = styleBlockId;
+            styleBlockId    = null;
+        }
+        const styleAttr = Object.assign({},
+                                        {   id: styleBlockId,
+                                          href: cssUrl, },
+                                        styleAttributes);
+        return this.#injectStyleCore(null, styleAttr, 'link', parentElem);
+    }
+
+    /* Internal method implementing {@link injectStyleBlock} and {@link injectStyleUrl}
+     */
+    static #injectStyleCore(cssStringOrElem, styleAttr, styleBlockType, parentElemParam) {
+        if (cssStringOrElem == null) {
+            return null;
+        }
+
+        const parentBlockElem = parentElemParam ?? document.getElementsByTagName('head')[0];
+        if (parentBlockElem == null) {
+            const errStr = `${this.name}.#injectStyleCore: parentBlockElem not found:'${parentBlockElem}', document.getElementsByTagName('head')[0]:'${document.getElementsByTagName('head')[0]}', parentElemParam:'${parentElemParam}', styleBlockType:'${styleBlockType}'`;
+            console.error(errStr);
+            throw new Error(errStr);
+        }
+
+        // Check to see if it already exists
+        let cssStyleBlockElem = styleAttr?.id == null ? null : document.getElementById(styleAttr.id);
+        if (cssStyleBlockElem == null) {
+            try {
+                const styleElem = document.createElement(styleBlockType);
+                for(const [attr, val] of Object.entries(styleAttr)) {
+                    styleElem.setAttribute(attr, val);
+                }
+                if (cssStringOrElem instanceof Node) {
+                    styleElem.replaceChildren(cssStringOrElem);
+                } else {
+                    styleElem.textContent = cssStringOrElem;
+                }
+                parentBlockElem.appendChild(styleElem);
+
+                cssStyleBlockElem = styleAttr?.id == null ?
+                                    null :
+                                    document.getElementById(styleAttr.id);
+
+            } catch (err) {
+                const styleIdStr = styleAttr?.id == null ? '' : ` with id:'${styleAttr.id}'`;
+                /* This comment fixes the incorrect syntax highlighting caused by the string above. */
+
+                console.error(`${this.name}.#injectStyleCore: error while inserting style${styleIdStr}, styleBlockType:'${styleBlockType}', err:${this.buildInlineErrorStr(err)}`);
+                throw err;
+            }
+        }
+        return cssStyleBlockElem;
+    }
+
+    /*
+     * @example
+     *      injectScriptBlock(javascriptCodeString, 'new-script-block-id')
+     */
+    static injectScriptBlock(jsStringOrElem,
+                             scriptBlockId = null,
+                             scriptAttributes = null,
+                             parentElem = null) {
+        if ('object' === typeof scriptBlockId && scriptAttributes == null) {
+            scriptAttributes = scriptBlockId;
+            scriptBlockId    = null;
+        }
+        const scriptAttr = Object.assign({},
+                                         {   id: scriptBlockId,
+                                           type: 'text/javascript', },
+                                         scriptAttributes);
+        return this.#injectScriptCore(jsStringOrElem, scriptAttr, parentElem);
+    }
+
+    /*
+     * @example
+     *      injectScriptUrl('https://someCdn.com/path/some.js', 'new-script-block-id')
+     */
+    static injectScriptUrl(scriptUrl,
+                           scriptBlockId = null,
+                           scriptAttributes = null,
+                           parentElem = null) {
+        if ('object' === typeof scriptBlockId && scriptAttributes == null) {
+            scriptAttributes = scriptBlockId;
+            scriptBlockId    = null;
+        }
+        const scriptAttr = Object.assign({},
+                                         {   id: scriptBlockId,
+                                            src: scriptUrl     },
+                                         scriptAttributes);
+        return this.#injectScriptCore(null, scriptAttr, parentElem);
+    }
+
+    /* Internal method implementing {@link injectScriptString} and {@link injectScriptUrl}
+     */
+    static #injectScriptCore(jsInput, scriptAttr = null, parentElemParam = null) {
+        if (jsInput == null) {
+            return null;
+        }
+        let parentBlockElem = parentElemParam ?? document.body;
+        if (parentBlockElem == null) {
+            const errStr = `${this?.name}.#injectScriptCore: parentBlockElem not found:'${parentBlockElem}', document.body:'${document?.body}', parentElemParam:'${parentElemParam}'`;
+            console.error(errStr);
+            throw new Error(errStr);
+        }
+        let scriptBlockElem = scriptAttr?.id == null ? null : document.getElementById(scriptAttr.id);
+        if (scriptBlockElem == null) {
+            try {
+                const scriptElem = document.createElement('script');
+                for(const [attr, val] of Object.entries(scriptAttr)) {
+                    if (val !== undefined) {
+                        scriptElem.setAttribute(attr, val);
+                    }
+                }
+                if (jsInput instanceof Node) {
+                    scriptElem.replaceChildren(jsInput);
+
+                } else {
+                    // scriptElem.innerHTML = jsInput;
+                    scriptElem.textContent = jsInput;
+                }
+                parentBlockElem.appendChild(scriptElem);
+
+                scriptBlockElem = scriptAttr?.id == null ?
+                                  null :
+                                  document.getElementById(scriptAttr.id);
+
+            } catch (err) {
+                const scriptIdStr = scriptAttr?.id == null ? '' : ` with id:'${scriptAttr.id}'`;
+                console.error(`${this?.name}.#injectScriptCore: error while inserting script${scriptIdStr}, err:${this.buildInlineErrorStr(err)}`);
+                throw err;
+            }
+        }
+        return scriptBlockElem;
+    }
+
+    static localeStartsWith(testString, startingString, localeOptions = null) {
+        const safeStartingString = String(startingString);
+        return String(testString).slice(0, safeStartingString.length)
+                                 .localeCompare(safeStartingString, localeOptions ?? {});
+    }
+
+    static caseInsensitiveCompare(stringA, stringB) {
+        if (stringA === stringB || (stringA == null && stringB == null)) {
+            return 0;
+        } else if (stringA == null) {
+            return 1;
+        } else if (stringB == null) {
+            return -1;
+        }
+        return stringA.localeCompare(stringB, { sensitivity: 'accent' });
+    }
+
+    static indentString(str, count, indent = ' ') {
+        return str.replace(/^/gm, indent.repeat(count));
+    }
+
+    static indentOverflow(str, count, indent = ' ') {
+        return this.indentString(str, count, indent).trim();
+    }
+
+    static parseInteger(nodeValue) {
+        let value = null;
+        try {
+            if (nodeValue == null) {
+                 value = null;
+            } else {
+                let newVal = nodeValue;
+                if (newVal.startsWith('$')) { // strip leading '$'
+                    newVal = newVal.substring(1);
+                }
+                if (newVal.endsWith('%')) {   // strip trailing '%'
+                    newVal = newVal.slice(0, -1);
+                }
+                value = parseInt(newVal);
+            }
+        } catch (err) {
+            if (this.freeRegex.test(nodeValue)) {
+                value = 100;
+            } else {
+                value = null;
+            }
+        }
+        return value;
+    }
+
+    static parseFloat(nodeValue) {
+        let value = null;
+        try {
+            if (nodeValue == null) {
+                 value = null;
+            } else {
+                let newVal = nodeValue;
+                if (newVal.startsWith('$')) { // strip leading '$'
+                    newVal = newVal.substring(1);
+                }
+                if (newVal.endsWith('%')) {   // strip trailing '%'
+                    newVal = newVal.slice(0, -1);
+                }
+                value = parseFloat(newVal);
+            }
+        } catch (err) {
+            if (this.freeRegex.test(nodeValue)) {
+                value = 100;
+            } else {
+                value = null;
+            }
+        }
+        return value;
+    }
+
+    /** Get text from only the supplied parentNode and not from any of its child nodes (i.e., concatenate the contents of all parentNode child nodes of type TEXT_NODE).
+     *  @param  parentNode {Node|null}   The element you want to extract the text from.
+     *  @return            {string|null} The extracted text (or null is the input was null).
+     *  @note adapted from https://stackoverflow.com/a/3538551
+     *  @example
+     *      let nodeStr = USL.getFirstText(document.getElementById('someTextNodeId'));
+     */
+    static getFirstText(parentNode) {
+        if (parentNode == null) {
+            return null;
+        }
+        return [].reduce.call(parentNode.childNodes, function(a, b) { return a + (b.nodeType === Node.TEXT_NODE ? b.textContent : ''); }, '');
+        // Node.TEXT_NODE === 3
+    }
+
+    /** Extracts the first decimal number from the string (does not support exponential notation).
+     *  @return {RegExpMatch|null}    The extracted text (or null is the input was null).
+     *  @note adapted from https://stackoverflow.com/a/3538551
+     *  @example
+     *      const priceMatch = numberRe.exec('The price is $3.14 right now.');
+     *      if (priceMatch != null) {
+     *          console.log(priceMatch[0]);             // '$3.14'
+     *          console.log(priceMatch[1]);             // '3.14'
+     *          console.log(priceMatch['currency']);    // '$'
+     *          console.log(priceMatch['percentage']);  // null
+     *      }
+     *  @example
+     *      const priceMatch = numberRe.exec('The price is 47% off today!');
+     *      if (priceMatch != null) {
+     *          console.log(priceMatch[0]);             // '47%'
+     *          console.log(priceMatch[1]);             // '47'
+     *          console.log(priceMatch['currency']);    // null
+     *          console.log(priceMatch['percentage']);  // '%'
+     *      }
+     *  @example
+     *      const priceMatch = numberRe.exec('234,567.123');
+     *      if (priceMatch != null) {
+     *          console.log(priceMatch[0]);             // '234,567.123'
+     *          console.log(priceMatch[1]);             // '234567.123'
+     *          console.log(priceMatch['currency']);    // null
+     *          console.log(priceMatch['percentage']);  // null
+     *      }
+     */
+    //static numberRe = /(?:(?<currency>\$)[\t ]*)?([+-]?(?:[0-9,]*[.])?[0-9]+)(?:[\t ]*(?<percentage>\%))?/i;
+    static numberRe = /(?:\$[\t ]*)?([+-]?(?:[0-9,]*[.])?[0-9]+)(?:[\t ]*\%)?/i;
+    static parseRawNumber(rawStr, freeValue = 0.0) {
+        if (rawStr == null) {
+            return null;
+        }
+
+        const rawStrType = typeof rawStr;
+        if ('object' === rawStrType && rawStr instanceof Node) {
+            rawStr = this.getFirstText(rawStr);
+
+        } else if ('number' === rawStrType) {
+            return rawStr;
+
+        } else if ('string' !== rawStrType) {
+            console.error(`${appId}:USL.parseRawNumber: rawStr type is not number, string, or Node (type:'${rawStrType}'), rawStr:'${rawStr}'.`, rawStr);
+            return null;
+        }
+
+        if (rawStr.toLowerCase().indexOf('free') >= 0) { // simple free check (improve??)
+            return freeValue;
+
+        } else {
+            return parseFloat(this.numberRe.exec(rawStr)?.[1]);
+        }
+    }
+
+    static addMillisecondsToNow(timeOffsetMs) {
+        if (timeOffsetMs == null) {
+            return null;
+        } else if (!isFinite(timeOffsetMs)) {
+            // Convert either Infinity to max/min dates
+            return timeOffsetMs >= 0 ? Date.MAX : Date.MIN;
+        }
+        const resultDate = new Date();
+        resultDate.setTime(resultDate.getTime() + timeOffsetMs);
+        return resultDate;
+    }
+
+    static rectangleToString(rect) {
+        if (rect == null) {
+            return null;
+        } else {
+            return `rect[${rect.top.toFixed(2)},${rect.left.toFixed(2)};${rect.height.toFixed(2)}x${rect.width.toFixed(2)}]`;
+        }
+    }
+
+    // insertAdjacentHTML that returns inserted element
+    static insertAdjacentHTML(relativeElement, position, html) {
+        try {
+            relativeElement.insertAdjacentHTML(position, html);
+            let insertedElement;
+            switch(position) {
+                case 'beforestart':
+                    insertedElement = relativeElement.previousSibling;
+                    break;
+                case 'afterstart':
+                    insertedElement = relativeElement.firstChild;
+                    break;
+                case 'beforeend':
+                    insertedElement = relativeElement.lastChild;
+                    break;
+                case 'afterend':
+                    insertedElement = relativeElement.nextSibling;
+                    break;
+            }
+            return insertedElement;
+        } catch(err) {
+            if (err?.name === 'NoModificationAllowedError') {
+                throw err;
+            } else if (err?.name === 'NoModificationAllowedError') {
+                throw err;
+            } else if (err instanceof DOMException) {
+                throw err;
+            } else {
+                throw err;
+            }
+        }
+    }
+
+    static insertAdjacentWithId(blockId, relativeElement, position, html) {
+        let blockElement = document.getElementById(blockId);
+        if (blockElement == null) {
+            relativeElement.insertAdjacentHTML(position, html);
+            blockElement = document.getElementById(blockId);
+            if (blockElement == null) {
+                console.error(`insertAdjacentWithId: unable to create block with id:'${blockId}'`);
+            }
+        }
+        return blockElement;
+    }
+
+    static assemblePrototypeChainGraph(value) {
+        let result = '';
+        let depth = 0;
+
+        while (value = Object.getPrototypeOf(value)) {
+            result = [
+                result,
+                '\n',
+                Array(depth++).fill('  ').join(''),
+                '=> ',
+                value.constructor.name,
+            ].join('');
+        }
+        return result;
+    }
+
+    /**
+     * @param {String} HTML representing a single element.
+     * @param {Boolean} flag representing whether or not to trim input whitespace, defaults to true.
+     * @return {Element | HTMLCollection | null}
+     * @note From https://stackoverflow.com/a/35385518
+     */
+    static fromHTML(html, trim = true) {
+        // Process the HTML string.
+        html = trim ? html.trim() : html;
+        if (!html) {
+            return null;
+        }
+
+        // Then set up a new template element.
+        const template     = document.createElement('template');
+        template.innerHTML = html;
+        const result       = template.content.children;
+
+        // Then return either an HTMLElement or HTMLCollection,
+        // based on whether the input HTML had one or more roots.
+        if (result.length === 1) {
+            return result[0];
+        }
+        return result;
+    }
+
+    static getCssListItemSelector(elem, listSelector, listElement = null) {
+        if (elem == null) {
+            return '<null>';
+        } else if (!elem instanceof HTMLElement) {
+            return '<not elem>';
+        } else if (elem.closest(listSelector)) {
+            const listItemSel = CssSelectorGenerator.getCssSelector(elem, {
+                root: listElement ?? document.body,
+            });
+            return "ListItem:" + listItemSel;
+        }
+        return CssSelectorGenerator.getCssSelector(elem);
+    }
+
+    // From: https://github.com/aglines/search_ddg_customdaterange
+    static observeDocument(callback) {
+        callback(document.body);
+
+        const observe = (observer) => observer.observe(document.body, {
+            childList: true, subtree: true,
+            attributes: false, characterData: false
+        });
+
+        const observer = new MutationObserver(function (mutations) {
+            if (mutations.length) {
+                observer.disconnect()
+                callback(mutations, observer);
+
+                observe(observer);
+            }
+        });
+
+        observe(observer);
+    }
+
+    // From: https://github.com/aglines/search_ddg_customdaterange
+    static elementReady(selector, timeoutInMs = -1) {
+        return new Promise((resolve, reject) => {
+            const getter = 'function' === typeof selector ?
+                () => selector() :
+                () => document.querySelectorAll(selector)
+            ;
+            const els = getter();
+            if (els && els.length) {
+                resolve(els[0]);
+            }
+            if (timeoutInMs > 0) {
+                var timeout = setTimeout(() => {
+                    reject(`elementReady(${selector}) timed out at ${timeoutInMs}ms`);
+                    console.debug(`elementReady(${selector}) timed out at ${timeoutInMs}ms`);
+                }, timeoutInMs);
+            }
+
+            new MutationObserver((mutationRecords, observer) => {
+                Array.from(getter() || []).forEach((element) => {
+                    clearTimeout(timeout);
+                    resolve(element);
+                    observer.disconnect();
+                });
+            }).observe(document.documentElement, {
+                childList: true,
+                subtree: true
+            });
+        });
+    }
+
+    static {
+        if (Date.MAX == null || Date.MIN == null) {
+            Date.MAX = new Date( 8640000000000000); // +275760-09-13T00:00:00.000Z (275,760 AD)
+            Date.MIN = new Date(-8640000000000000); // -271821-04-20T00:00:00.000Z (271,822 BCE)
+        }
+    }
 }
-*/
+
 // I can't remember why I wanted/needed this...
 // (I think it's some kind of 'fix' for iPad Safari):
-/*
 document.addEventListener("touchstart", function() {}, false);
 
-console.log(`%c${libId}: initialized.`, 'color:#4060FF;');
-
-exports = {
-    RestoreWindowsConsole: RestoreWindowsConsole,
-                 AddEruda: AddEruda,
-};
-
-
-*/
-
+console.log(`%c${libId}: loaded.`, 'color:#4060FF;');
 
 
 
