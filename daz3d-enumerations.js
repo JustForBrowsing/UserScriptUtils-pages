@@ -15,7 +15,8 @@ const BundleStatus = new Enum({     // enum: { bundle: is a bundle?, desc: "desc
     EffectivelyComplete:{ bundle:true,  desc:"All desired items in this bundle are owned." },
     FullyComplete:      { bundle:true,  desc:"All items are owned but bundle is not marked as owned)" },
     Owned:              { bundle:true,  desc:"This bundle is owned and is fully complete." },
-    }, { name: 'BundleStatus', ignoreCase: true, freeze: false }
+    }, 
+    { name: 'BundleStatus', ignoreCase: true, freeze: false }
 );
 BundleStatus.NotABundleEnums = [ BundleStatus.Unknown, BundleStatus.NotABundle,
                                  BundleStatus.BundleInFlagOnly ];
@@ -58,7 +59,8 @@ const ReasonToBuy = new Enum({  // enum: { type: 'wanted or not', desc: "descrip
     RequiredParent: { type: 'Wanted',    desc: "Required as the parent of an already owned item." },
                         // This item is required by an already owned item to make it work --
                         // use 'WantedItem' for similar items that are only desired, but not required.
-    }, { name: 'ReasonToBuy', ignoreCase: true, freeze: false }
+    },
+    { name: 'ReasonToBuy', ignoreCase: true, freeze: false }
 );
 // Add lists grouping enum values
 ReasonToBuy.NotWantedEnums  = [ ReasonToBuy.DoNotBuy,               ReasonToBuy.Incompatible,
@@ -95,7 +97,8 @@ const PriorityToBuy = new Enum({    // enum: { priority: relativePriority, desc:
         Medium:         { priority:  25, desc: "Buy if offered for a decent price (75%+)." },
         High:           { priority:  50, desc: "Buy as soon as it's discounted (50%+)." },
         PayFullPrice:   { priority: 100, desc: "Buy. It. Now. (even with no discount)." },
-    }, { name: 'PriorityToBuy', ignoreCase: true, freeze: false }
+    }, 
+    { name: 'PriorityToBuy', ignoreCase: true, freeze: false }
 );
 PriorityToBuy.DoNotBuy = [ PriorityToBuy.Invalid,  PriorityToBuy.Unknown,
                            PriorityToBuy.DoNotBuy, PriorityToBuy.NotInterested ];
@@ -124,7 +127,8 @@ const LicenseStatus = new Enum({    // enum: { desc: "description text" }
         Future:         { desc: "May need this license in the future (not wanted now, don't buy)" },
         BarginOnly:     { desc: "May need this license, buy it if/when on sale." },
         NeedIt:         { desc: "Need this, buy ASAP!" },
-     }, { name: 'LicenseStatus', ignoreCase: true, freeze: false }
+    }, 
+    { name: 'LicenseStatus', ignoreCase: true, freeze: false }
 );
 LicenseStatus.NotWantedEnums = [ LicenseStatus.Invalid, LicenseStatus.Unknown,
                                  LicenseStatus.NotAvailable, LicenseStatus.Unnecessary,
@@ -158,7 +162,8 @@ const ItemDisplay = new Enum({      // enum: { class: 'associated CSS class', de
         Normal:     { class:'item-display-normal',     desc:"Shown as a normal item."},
         Grayed:     { class:'item-display-grayed',     desc:"Shown as a faded/grayed out item."},
         Hide:       { class:'item-display-hide',       desc:"Hide this item (when applicable)."},
-    }, { name: 'ItemDisplay', ignoreCase: true, freeze: false }
+    }, 
+    { name: 'ItemDisplay', ignoreCase: true, freeze: false }
 );
 LicenseStatus.VisibleEnums = [ LicenseStatus.Default, LicenseStatus.Discounted,
                                LicenseStatus.Normal, LicenseStatus.Grayed ];
@@ -180,7 +185,8 @@ const DazItemType = new Enum({      // enum: { desc: "description text" }
         DazOriginal:        { desc: "Item is a Daz3D Original item." },
         DazPlus:            { desc: "Item is a Daz3D Plus item (but not an exclusive)." },
         DazPlusExclusive:   { desc: "Item is a Daz3D Plus Exclusive item." },
-    }, { name: 'DazItemType', ignoreCase: true, freeze: false }
+    }, 
+    { name: 'DazItemType', ignoreCase: true, freeze: false }
 );
 DazItemType.enums.forEach((e) => { e.desc = e.value.desc; });
 DazItemType.freezeEnums(); // Permanently freeze the enum
@@ -197,7 +203,8 @@ const DazPageType = new Enum({  // value: description text
         Other:              { desc: "Other known but uninteresting page types." },
         List:               { desc: "Lists of products (search results, etc)." },
         Product:            { desc: "Product description page." },
-    }, { name: 'DazPageType', ignoreCase: true, freeze: false }
+    },
+    { name: 'DazPageType', ignoreCase: true, freeze: false }
 );
 DazPageType.enums.forEach((e) => { e.desc = e.value.desc; });
 DazPageType.freezeEnums(); // Permanently freeze the enum
@@ -217,7 +224,8 @@ const PageListType = new Enum({     // enum: { desc: "description text" }
         Included:   { type: DazPageType.List,    desc: "An included list result structured page. ???" },
         Product:    { type: DazPageType.Product, desc: "Product description page." },
         Bundle:     { type: DazPageType.Product, desc: "Product bundle description page." },
-    }, { name: 'PageListType', ignoreCase: true, freeze: false }
+    }, 
+    { name: 'PageListType', ignoreCase: true, freeze: false }
 );
 PageListType.enums.forEach((e) => { e.type = e.value.type; e.desc = e.value.desc; });
 PageListType.freezeEnums(); // Permanently freeze the enum
