@@ -55,16 +55,16 @@ function RestoreWindowsConsole(appId = "app???") {
         console.error(`${appId}:RestoreWindowsConsole: error while fixing altered console:`, err);
     }
 }
-/*
+
 //fixConsole(appId);
 //console.log(`${appId}:console check complete.`);
 const defaultPosition = { 
     x: 5,
     y: window.screen.height / 3,
 };
-const AddEruda = ( appId, options = {} ) => {
+function AddEruda(appId, options = {} ) {
     // options = _.defaults(options, {
-    let options = {
+    options = {
           fixConsole: true,
          displaySize: 55,
         transparency: 0.95,
@@ -103,9 +103,10 @@ const AddEruda = ( appId, options = {} ) => {
                         catchGlobalErr: true,
                            asyncRender: true,
                     },
-            });
+                }
+            );
             window.M3ERUDAINIT = 'created';
-         
+        }
      } catch (err) {
         const errMsg = `${appId}:AddEruda:Creating Eruda: err: ${typeof err}: '${err.message}'.`;
         console.error(errMsg);
