@@ -19,9 +19,11 @@ console.log(`%c${libId}: loading...`, 'color:#4060FF;');
         // @require     https://raw.githubusercontent.com/JustForBrowsing/UserScriptUtils/refs/heads/main/UserScriptUtils.js
         
     2) Globals
-        Declare the imports as globals (adding any addition names needed for the script).
-        This should be included just AFTER ==UserScript== block of your main User Script.
+        Declare all imports you plan to use as globals for ESLint 
+        Add any addition names needed for your script.
+        These should be included just AFTER the ==UserScript== block in your main User Script.
         
+        // global AddEruda, USL
         // global eruda, erudaCode, erudaMonitor, erudaTiming
 
     3) Grants (FUTURE)
@@ -31,9 +33,10 @@ console.log(`%c${libId}: loading...`, 'color:#4060FF;');
         // @grant       GM_setValue
         // @grant       GM_addStyle
 */
-/* -nop-global _, CssSelectorGenerator, Enum */
-/* -nop-global eruda, erudaFeatures */
-/* -nop-global DazProductSlab, daz */
+
+// I can't remember why I wanted/needed this...
+// (I think it's some kind of 'fix' for iPad Safari):
+document.addEventListener("touchstart", function() {}, false);
 
 function RestoreWindowsConsole(libId = libId) {
     try {
@@ -678,10 +681,6 @@ class USL {
         }
     }
 }
-
-// I can't remember why I wanted/needed this...
-// (I think it's some kind of 'fix' for iPad Safari):
-document.addEventListener("touchstart", function() {}, false);
 
 console.log(`%c${libId}: loaded.`, 'color:#4060FF;');
 
