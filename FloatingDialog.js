@@ -4,8 +4,7 @@
 // @version     0.1.0
 // @description FloatingDialog (floating-dialog) custom element
 // ==/UserLibrary=
-let libId = "FloatingDialog";
-console.log(`%c${libId}: loading...`, 'color:#4060FF;');
+console.log(`%c${GM_info.script.name}: loading...`, 'color:#4060FF;');
 
 class FloatingDialog extends HTMLElement {
     static template = null;
@@ -421,6 +420,11 @@ class FloatingDialog extends HTMLElement {
         customElements.define("floating-dialog", FloatingDialog);
     }
 }
+
+
+
+
+
 
 
 
