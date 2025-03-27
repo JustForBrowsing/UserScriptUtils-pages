@@ -4,8 +4,7 @@
 // @version     0.1.0
 // @description Adds functionality to the Daz3D web site
 // ==/UserLibrary=
-let libId = "Daz3DEnumerations";
-console.log(`%c${libId}: loading...`, 'color:#4060FF;')
+console.log(`%c${GM_info.script.name}: loading...`, 'color:#4060FF;')
         
 // const Enum = import('https://raw.githubusercontent.com/adrai/enum/master/dist/enum-3.0.4.min.js');
 
