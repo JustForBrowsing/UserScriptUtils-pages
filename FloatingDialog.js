@@ -4,7 +4,7 @@
 // @version     0.1.0
 // @description FloatingDialog (floating-dialog) custom element
 // ==/UserLibrary=
-const libId = "FloatingDialog";
+let libId = "FloatingDialog";
 console.log(`%c${libId}: loading...`, 'color:#4060FF;');
 
 class FloatingDialog extends HTMLElement {
