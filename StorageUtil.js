@@ -4,8 +4,7 @@
 // @version     0.1.0
 // @description Support for persistent userscript storage
 // ==/UserLibrary=
-let libId = "StorageUtil";
-console.log(`%c${libId}: loading...`, 'color:#4060FF;');
+console.log(`%c${GM_info.script.name}: loading...`, 'color:#4060FF;');
 
 ////////////////////////////////////////////
 //// Local Storage management classes
