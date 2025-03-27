@@ -4,7 +4,7 @@
 // @version     0.1.0
 // @description Adds functionality to the Daz3D web site
 // ==/UserLibrary=
-const libId = "ShowImageDialog";
+let libId = "ShowImageDialog";
 console.log(`%c${libId}: loading...`, 'color:#4060FF;');
 
 class ShowImageDialogOptions {
