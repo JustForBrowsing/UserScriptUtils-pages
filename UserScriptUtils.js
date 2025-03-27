@@ -4,8 +4,8 @@
 // @version     0.1.0
 // @description Adds functionality to the Daz3D web site
 // ==/UserLibrary=
-let libId = "UserScriptUtils";
-console.log(`%c${libId}: loading...`, 'color:#4060FF;');
+//let libId = "UserScriptUtils";
+console.log(`%c${GM_info.script.name}: loading...`, 'color:#4060FF;');
 
 /* DEPENDANCIES:
     1) Imports (@requires)
@@ -79,23 +79,23 @@ function AddEruda(libId = libId, options = {}) {
  
     try {
         if (options?.fixConsole ?? true) {
-             RestoreWindowsConsole(libId);
+             RestoreWindowsConsole(GM_info.script.name);
         }
      
     } catch (err) {
-        const errMsg = `${libId}:AddEruda:Fixing Console: err: ${typeof err}: '${err.message}'.`;
+        const errMsg = `${GM_info.script.name}:AddEruda:Fixing Console: err: ${typeof err}: '${err.message}'.`;
         console.error(errMsg);
         alert(errMsg);
     }
 
     try {
         if (window.M3ERUDAINIT != null) {
-            console.log(`${libId}:AddEruda: Eruda Already Running, Jumping To (Re)Configuring Eruda`);
+            console.log(`${GM_info.script.name}:AddEruda: Eruda Already Running, Jumping To (Re)Configuring Eruda`);
             return;
         
         } else {
             window.M3ERUDAINIT = 'creating';
-            console.log(`${libId}:AddEruda: Starting eruda console...`);
+            console.log(`${GM_info.script.name}:AddEruda: Starting eruda console...`);
             eruda.init({
                    autoScale: true,
                 useShadowDom: true,
@@ -114,7 +114,7 @@ function AddEruda(libId = libId, options = {}) {
             window.M3ERUDAINIT = 'created';
         }
      } catch (err) {
-        const errMsg = `${libId}:AddEruda:Creating Eruda: err: ${typeof err}: '${err.message}'.`;
+        const errMsg = `${GM_info.script.name}:AddEruda:Creating Eruda: err: ${typeof err}: '${err.message}'.`;
         console.error(errMsg);
         alert(errMsg);
     }
@@ -136,12 +136,12 @@ function AddEruda(libId = libId, options = {}) {
         window.M3ERUDAINIT = 'running';
      
     } catch (err) {
-        const errMsg = `${libId}:AddEruda:Configuring Eruda: err: ${typeof err}: '${err.message}'.`;
+        const errMsg = `${GM_info.script.name}:AddEruda:Configuring Eruda: err: ${typeof err}: '${err.message}'.`;
         console.error(errMsg);
         alert(errMsg);
      
     } finally {
-        console.log(`${libId}:AddEruda: ...Complete.`);
+        console.log(`${GM_info.script.name}:AddEruda: ...Complete.`);
     }
 }
 
@@ -561,7 +561,7 @@ class USL {
             relativeElement.insertAdjacentHTML(position, html);
             blockElement = document.getElementById(blockId);
             if (blockElement == null) {
-                console.error(`insertAdjacentWithId: unable to create block with id:'${blockId}'`);
+                console.error(`${GM_info.script.name}:insertAdjacentWithId: unable to create block with id:'${blockId}'`);
             }
         }
         return blockElement;
@@ -658,7 +658,7 @@ class USL {
             if (timeoutInMs > 0) {
                 var timeout = setTimeout(() => {
                     reject(`elementReady(${selector}) timed out at ${timeoutInMs}ms`);
-                    console.debug(`elementReady(${selector}) timed out at ${timeoutInMs}ms`);
+                    console.debug(`${GM_info.script.name}:elementReady(${selector}) timed out at ${timeoutInMs}ms`);
                 }, timeoutInMs);
             }
 
