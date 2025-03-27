@@ -3,9 +3,8 @@
 // @author      Me
 // @version     0.1.0
 // @description Adds functionality to the Daz3D web site
-// ==/UserLibrary=
-let libId = "Daz3DSupport";
-console.log(`%c${libId}: loading...`, 'color:#4060FF;');
+// ==/UserLibrary
+console.log(`%c${GM_info.script.name}: loading...`, 'color:#4060FF;');
 /*
  * static class with Daz related support functions
  */
