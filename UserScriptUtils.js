@@ -192,7 +192,7 @@ class USL {
             sessionStorage.setItem(key, JSON.stringify(value));
         } catch (err) {
             if (displayErrors) {
-                console.error(`${appId}:USL.sessionStoragePut: Error, err:${this.buildInlineErrorStr(err)}`);
+                console.error(`${GM_info.script.name}:USL.sessionStoragePut: Error, err:${this.buildInlineErrorStr(err)}`);
             }
         }
     }
@@ -490,7 +490,7 @@ class USL {
             return rawStr;
 
         } else if ('string' !== rawStrType) {
-            console.error(`${appId}:USL.parseRawNumber: rawStr type is not number, string, or Node (type:'${rawStrType}'), rawStr:'${rawStr}'.`, rawStr);
+            console.error(`${GM_info.script.name}:USL.parseRawNumber: rawStr type is not number, string, or Node (type:'${rawStrType}'), rawStr:'${rawStr}'.`, rawStr);
             return null;
         }
 
@@ -680,10 +680,11 @@ class USL {
             Date.MAX = new Date( 8640000000000000); // +275760-09-13T00:00:00.000Z (275,760 AD)
             Date.MIN = new Date(-8640000000000000); // -271821-04-20T00:00:00.000Z (271,822 BCE)
         }
+        this.name = GM_info.script.name;
     }
 }
 
-console.log(`%c${libId}: loaded.`, 'color:#4060FF;');
+console.log(`%c${GM_info.script.name}: loaded.`, 'color:#4060FF;');
 
 
 
