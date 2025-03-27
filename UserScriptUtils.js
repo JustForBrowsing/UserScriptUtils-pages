@@ -4,11 +4,7 @@
 // @version     0.1.0
 // @description Adds functionality to the Daz3D web site
 // ==/UserLibrary=
-let USL;
-let RestoreWindowsConsole;
-let AddEruda;
-{
-const libId = "UserScriptUtils";
+let libId = "UserScriptUtils";
 console.log(`%c${libId}: loading...`, 'color:#4060FF;');
 
 /* DEPENDANCIES:
@@ -42,7 +38,7 @@ console.log(`%c${libId}: loading...`, 'color:#4060FF;');
 // (I think it's some kind of 'fix' for iPad Safari):
 document.addEventListener("touchstart", function() {}, false);
 
-RestoreWindowsConsole = function _RestoreWindowsConsole(libId = libId) {
+function RestoreWindowsConsole(libId = libId) {
     try {
         const ogWindow = document.createElement('iframe');
         ogWindow.style.display = 'none';
@@ -69,11 +65,12 @@ RestoreWindowsConsole = function _RestoreWindowsConsole(libId = libId) {
     }
 }
 
-const DefaultErudaPosition = { 
-    x: 5,
-    y: window.screen.height / 3,
-};
-AddEruda = function _AddEruda(libId = libId, options = {}) {
+function AddEruda(libId = libId, options = {}) {
+    const DefaultErudaPosition = { 
+        x: 5,
+        y: window.screen.height / 3,
+    };
+    
     options = options ?? {};
     options.fixConsole   = options?.fixConsole   ?? true;
     options.displaySize  = options?.displaySize  ?? 55;
@@ -148,7 +145,7 @@ AddEruda = function _AddEruda(libId = libId, options = {}) {
     }
 }
 
-USL = class _USL {
+class USL {
     static validJsonStartRe =
               new RegExp(/^\s*("?(\d+|[^a-zA-Z0-9]true\s|[^a-zA-Z0-9]false\s)"?)|\{|\[|""/, 'i');
     /* This comment fixes the incorrect syntax highlighting (bug) caused by the string above. */
@@ -687,7 +684,7 @@ USL = class _USL {
 }
 
 console.log(`%c${libId}: loaded.`, 'color:#4060FF;');
-}
+
 
 
 
