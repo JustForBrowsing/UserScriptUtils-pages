@@ -4,6 +4,10 @@
 // @version     0.1.0
 // @description Adds functionality to the Daz3D web site
 // ==/UserLibrary=
+let USL;
+let RestoreWindowsConsole;
+let AddEruda;
+{
 const libId = "UserScriptUtils";
 console.log(`%c${libId}: loading...`, 'color:#4060FF;');
 
@@ -38,7 +42,7 @@ console.log(`%c${libId}: loading...`, 'color:#4060FF;');
 // (I think it's some kind of 'fix' for iPad Safari):
 document.addEventListener("touchstart", function() {}, false);
 
-function RestoreWindowsConsole(libId = libId) {
+RestoreWindowsConsole = function _RestoreWindowsConsole(libId = libId) {
     try {
         const ogWindow = document.createElement('iframe');
         ogWindow.style.display = 'none';
@@ -69,7 +73,7 @@ const DefaultErudaPosition = {
     x: 5,
     y: window.screen.height / 3,
 };
-function AddEruda(libId = libId, options = {}) {
+AddEruda = function _AddEruda(libId = libId, options = {}) {
     options = options ?? {};
     options.fixConsole   = options?.fixConsole   ?? true;
     options.displaySize  = options?.displaySize  ?? 55;
@@ -144,7 +148,7 @@ function AddEruda(libId = libId, options = {}) {
     }
 }
 
-class USL {
+USL = class _USL {
     static validJsonStartRe =
               new RegExp(/^\s*("?(\d+|[^a-zA-Z0-9]true\s|[^a-zA-Z0-9]false\s)"?)|\{|\[|""/, 'i');
     /* This comment fixes the incorrect syntax highlighting (bug) caused by the string above. */
@@ -683,7 +687,7 @@ class USL {
 }
 
 console.log(`%c${libId}: loaded.`, 'color:#4060FF;');
-
+}
 
 
 
