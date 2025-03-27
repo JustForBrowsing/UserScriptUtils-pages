@@ -1,10 +1,10 @@
 // ==UserLibrary==
-// @name        Daz3D-Support
+// @name        Daz3DSupport
 // @author      Me
 // @version     0.1.0
 // @description Adds functionality to the Daz3D web site
 // ==/UserLibrary=
-const libId = "Daz3D-Support";
+let libId = "Daz3DSupport";
 console.log(`%c${libId}: loading...`, 'color:#4060FF;');
 /*
  * static class with Daz related support functions
