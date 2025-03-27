@@ -4,7 +4,7 @@
 // @version     0.1.0
 // @description Support for persistent userscript storage
 // ==/UserLibrary=
-const libId = "StorageUtil";
+let libId = "StorageUtil";
 console.log(`%c${libId}: loading...`, 'color:#4060FF;');
 
 ////////////////////////////////////////////
