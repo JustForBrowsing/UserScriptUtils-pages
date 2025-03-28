@@ -685,7 +685,7 @@ class USU {
 }
 console.log(`%cUserScriptUtils: loaded.`, 'color:#4060FF;');
 
-exports = {
+export {
     RestoreWindowsConsole: RestoreWindowsConsole,
                  AddEruda: AddEruda,
                       USU: USU,
