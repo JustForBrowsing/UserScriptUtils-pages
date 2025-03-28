@@ -4,7 +4,7 @@
 // @version     0.1.0
 // @description FloatingDialog (floating-dialog) custom element
 // ==/UserLibrary=
-console.log(`%c${GM_info.script.name}: loading...`, 'color:#4060FF;');
+console.log(`%cFloatingDialog: loading...`, 'color:#4060FF;');
 
 class FloatingDialog extends HTMLElement {
     static template = null;
@@ -218,17 +218,14 @@ class FloatingDialog extends HTMLElement {
     }
 
     static get defaultDialogStyle() { return `
-
         * {
             box-sizing: border-box;
         }
-
         :host {
             padding: var(--dialog-container-padding, 5vw 24px);
             z-index: var(--dialog-z-index, 12345678);
             outline: none;
         }
-
         :host,
         #backdrop {
             position: fixed;
@@ -237,7 +234,6 @@ class FloatingDialog extends HTMLElement {
             bottom: 0;
             right: 0;
         }
-
         :host,
         :host([center]) #dialog {
             overflow-x: var(--dialog-overflow-x, hidden);
@@ -245,7 +241,6 @@ class FloatingDialog extends HTMLElement {
             overscroll-behavior: contain;
             -webkit-overflow-scrolling: touch;
         }
-
         :host([center]) {
             display: flex;
             align-items: center;
