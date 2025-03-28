@@ -5,9 +5,10 @@
 // @description Adds functionality to the Daz3D web site
 // ==/UserLibrary=
 
-// (async () => 
+// (async () => {
 if (null != window?.Enum) {
-window.Enum = await import("https://cdn.jsdelivr.net/npm/enum@3.0.4/index.min.js");
+    window.Enum = await import("https://cdn.jsdelivr.net/npm/enum@3.0.4/index.min.js");
+}
 // })();
 console.log(`%cDaz3DEnumerations: loading...`, 'color:#4060FF;')
         
