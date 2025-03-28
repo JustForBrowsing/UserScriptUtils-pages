@@ -4,7 +4,7 @@
 // @version     0.1.0
 // @description Adds functionality to the Daz3D web site
 // ==/UserLibrary
-console.log(`%c${GM_info.script.name}: loading...`, 'color:#4060FF;');
+console.log(`%cShowImageDialog: loading...`, 'color:#4060FF;');
 
 class ShowImageDialogOptions {
     dialogId                            = 'showImageDialog';
@@ -114,7 +114,7 @@ class ShowImageDialog extends EventTarget {
         this.showImageDialog        = document.getElementById(this.dialogId);
         this.showImageDialogImgList = this.showImageDialog?.querySelector('ul.splide__list');
         if (this.showImageDialog == null) {
-            throw new Error(`${GM_info.script.name}:ShowImageDialog.addImageDialogToPage: error, could not get dialog this.#showImageDialog, this.dialogId:${this.dialogId}, dialogTargetElement:${dialogTargetElement}.`);
+            throw new Error(`ShowImageDialog:ShowImageDialog.addImageDialogToPage: error, could not get dialog this.#showImageDialog, this.dialogId:${this.dialogId}, dialogTargetElement:${dialogTargetElement}.`);
         }
         this.clearImages();
 
