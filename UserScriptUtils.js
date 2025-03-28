@@ -5,7 +5,7 @@
 // @description Adds functionality to the Daz3D web site
 // ==/UserLibrary=
 //let libId = "UserScriptUtils";
-console.log(`%c${GM_info?.script?.name}: loading...`, 'color:#4060FF;');
+console.log(`%cUserScriptUtils: loading...`, 'color:#4060FF;');
 
 /* DEPENDANCIES:
     1) Imports (@requires)
@@ -39,7 +39,7 @@ console.log(`%c${GM_info?.script?.name}: loading...`, 'color:#4060FF;');
 document.addEventListener("touchstart", function() {}, false);
 
 function RestoreWindowsConsole(_libId = null) {
-    let libId = _libId ?? GM_info?.script?.name;
+    let libId = _libId ?? "UserScriptUtils";
     try {
         const ogWindow = document.createElement('iframe');
         ogWindow.style.display = 'none';
@@ -67,7 +67,7 @@ function RestoreWindowsConsole(_libId = null) {
 }
 
 function AddEruda(_libId = null, options = {}) {
-    let libId = _libId ?? GM_info?.script?.name;
+    let libId = _libId ?? "UserScriptUtils";
     const DefaultErudaPosition = { 
         x: 5,
         y: window.screen.height / 3,
@@ -682,11 +682,11 @@ class USU {
             Date.MAX = new Date( 8640000000000000); // +275760-09-13T00:00:00.000Z (275,760 AD)
             Date.MIN = new Date(-8640000000000000); // -271821-04-20T00:00:00.000Z (271,822 BCE)
         }
-        this.name = `${GM_info?.script?.name}:USU`;
+        this.name = `UserScriptUtils:USU`;
     }
 }
-
-console.log(`%c${GM_info?.script?.name}: loaded.`, 'color:#4060FF;');
+const usu = USU;
+console.log(`%cUserScriptUtils: loaded.`, 'color:#4060FF;');
 
 
 
