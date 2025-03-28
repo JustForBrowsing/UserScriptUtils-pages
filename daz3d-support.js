@@ -474,3 +474,6 @@ class DazMeta {
         this.constructorStatic();
     }
 }
+export {
+    DazMeta
+}
