@@ -683,8 +683,15 @@ class USU {
         this.name = `UserScriptUtils:USU`;
     }
 }
-const usu = USU;
 console.log(`%cUserScriptUtils: loaded.`, 'color:#4060FF;');
+
+exports = {
+    RestoreWindowsConsole: RestoreWindowsConsole,
+                 AddEruda: AddEruda,
+                      USU: USU,
+};
+
+
 
 
 
