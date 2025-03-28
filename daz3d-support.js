@@ -4,7 +4,7 @@
 // @version     0.1.0
 // @description Adds functionality to the Daz3D web site
 // ==/UserLibrary
-console.log(`%c${GM_info?.script?.name}: loading...`, 'color:#4060FF;');
+console.log(`%cDaz3DSupport: loading...`, 'color:#4060FF;');
 /*
  * static class with Daz related support functions
  */
@@ -114,7 +114,7 @@ class DazMeta {
             highlightClass = this.getDiscountClass(discountPct);
             return this.#cssClassToHighlightParmsObj[highlightClass];
         } catch (err) {
-            const errStr = `${GM_info?.script?.name}:DazMeta.getHighlightInfo: Error while retrieving highlight parameters for discountPct:${discountPct}% [class: '${highlightClass}']`;
+            const errStr = `Daz3DSupport:DazMeta.getHighlightInfo: Error while retrieving highlight parameters for discountPct:${discountPct}% [class: '${highlightClass}']`;
             console.error(errStr);
             throw new Error(errStr, err);
         }
@@ -280,7 +280,7 @@ class DazMeta {
             return this.listSelectorsMap.get(pageType);
 
         } catch (err) {
-            console.error(`${GM_info?.script?.name}:DazMeta.getListSelector(${pageType}): err:${Support.buildInlineErrorStr(err)}.`);
+            console.error(`Daz3DSupport:DazMeta.getListSelector(${pageType}): err:${Support.buildInlineErrorStr(err)}.`);
 
             return this.listSelectorsMap.get(PageListType.Unknown);
         }
@@ -300,7 +300,7 @@ class DazMeta {
     //     data-daz-breadcrumb-id="product101592">
 
     static #determineCurrentDazPageTypeAsync(options = {}) {
-        console.debug(`${GM_info?.script?.name}:DazMain.#determineCurrentDazPageTypeAsync: start...`);
+        console.debug(`Daz3DSupport:DazMain.#determineCurrentDazPageTypeAsync: start...`);
 
         return new Promise((resolve, reject) => {
             try {
@@ -327,7 +327,7 @@ class DazMeta {
                             }
                         }
                     }
-                    console.debug(`${GM_info?.script?.name}:DazMain.#determineCurrentDazPageTypeAsync: selectorList:${selectorList?.join(", ")}`);
+                    console.debug(`Daz3DSupport:DazMain.#determineCurrentDazPageTypeAsync: selectorList:${selectorList?.join(", ")}`);
 
                     //console.debug(`${GM_info?.script?.name}:DazMain.#determineCurrentDazPageTypeAsync: ${selectorList.join(' | ')}.`);
                     // const waitForSelectorList = new WaitForAnyElement=(selectorList, { timeoutMs: timeoutMs });
@@ -338,31 +338,31 @@ class DazMeta {
                     // }
 
                     function getType(that, selectorList) {
-                        console.log(`${GM_info?.script?.name}:DazMain.#determineCurrentDazPageTypeAsync:getType: Looking... (selectorList:${selectorList?.length}).`);
+                        console.log(`Daz3DSupport:DazMain.#determineCurrentDazPageTypeAsync:getType: Looking... (selectorList:${selectorList?.length}).`);
                         let selInfo = {};
                         let foundSel = null;
                         for (const sel of selectorList) {
                             selInfo = document.querySelectorAll(sel);
-                            console.log(`${GM_info?.script?.name}:DazMain.#determineCurrentDazPageTypeAsync:getType: sel:'${sel}', selInfo:${selInfo?.length}.`);
+                            console.log(`Daz3DSupport:DazMain.#determineCurrentDazPageTypeAsync:getType: sel:'${sel}', selInfo:${selInfo?.length}.`);
                             if (selInfo?.length > 0) {
                                 foundSel = sel;
-                                console.log(`${GM_info?.script?.name}:DazMain.#determineCurrentDazPageTypeAsync:getType: break, sel:'${sel}', foundSel:'${foundSel}'.`);
+                                console.log(`Daz3DSupport:DazMain.#determineCurrentDazPageTypeAsync:getType: break, sel:'${sel}', foundSel:'${foundSel}'.`);
                                 break;
                             }
                         }
-                        console.log(`${GM_info?.script?.name}:DazMain.#determineCurrentDazPageTypeAsync:getType: foundSel:'${foundSel}'.`);
+                        console.log(`Daz3DSupport:DazMain.#determineCurrentDazPageTypeAsync:getType: foundSel:'${foundSel}'.`);
 
                         const selPLT = selectorToPageListType.get(foundSel);
-                        console.log(`${GM_info?.script?.name}:DazMain.#determineCurrentDazPageTypeAsync:getType: selPLT:'${selPLT}'.`);
+                        console.log(`Daz3DSupport:DazMain.#determineCurrentDazPageTypeAsync:getType: selPLT:'${selPLT}'.`);
                         if (selPLT == null) {
-                            console.error(`${GM_info?.script?.name}:DazMain.#determineCurrentDazPageTypeAsync:getType: foundSel:'${foundSel}' was not found in selectorToPageListType (keys:${[...selectorToPageListType.keys()].join(', ')}.`);
+                            console.error(`Daz3DSupport:DazMain.#determineCurrentDazPageTypeAsync:getType: foundSel:'${foundSel}' was not found in selectorToPageListType (keys:${[...selectorToPageListType.keys()].join(', ')}.`);
                         }
                         this._currentPageListType = PageListType.get(selPLT) ?? PageListType.Invalid;
-                        console.log(`${GM_info?.script?.name}:DazMain.#determineCurrentDazPageTypeAsync:getType: this._currentPageListType:'${this._currentPageListType}'.`);
+                        console.log(`Daz3DSupport:DazMain.#determineCurrentDazPageTypeAsync:getType: this._currentPageListType:'${this._currentPageListType}'.`);
                         if (this._currentPageListType == PageListType.Invalid) {
-                            console.error(`${GM_info?.script?.name}:DazMain.#determineCurrentDazPageTypeAsync:getType: this._currentPageListType == PageListType.Invalid, selPLT:'${selPLT}'.`);
+                            console.error(`Daz3DSupport:DazMain.#determineCurrentDazPageTypeAsync:getType: this._currentPageListType == PageListType.Invalid, selPLT:'${selPLT}'.`);
                         }
-                        console.log(`${GM_info?.script?.name}:DazMain.#determineCurrentDazPageTypeAsync:getType: selInfo.selector:(${selInfo?.selector}), selInfo.element:${selInfo?.element}, this._currentPageListType:${that._currentPageListType}, selPLT:${selPLT}.`);
+                        console.log(`Daz3DSupport:DazMain.#determineCurrentDazPageTypeAsync:getType: selInfo.selector:(${selInfo?.selector}), selInfo.element:${selInfo?.element}, this._currentPageListType:${that._currentPageListType}, selPLT:${selPLT}.`);
                         // console.log(`${GM_info?.script?.name}:DazMain.#determineCurrentDazPageTypeAsync: waitForAnyElement: selInfo.selector:${selInfo?.selector}, selectorToPageListType.get(selInfo.selector):${selectorToPageListType.get(selInfo?.selector)}, this._currentPageListType:${this._currentPageListType}.`);
 
                         resolve(that._currentPageListType);
@@ -371,33 +371,33 @@ class DazMeta {
                     setTimeout(getType.bind(this), 250, this, selectorList);
                 }
             } catch(err) {
-                console.error(`${GM_info?.script?.name}:DazMain.#determineCurrentDazPageTypeAsync: Error: ${err}`);
+                console.error(`Daz3DSupport:DazMain.#determineCurrentDazPageTypeAsync: Error: ${err}`);
                 reject(err);
             }
         });
     }
     static get currentPageListType() {
-        //console.log(`${GM_info?.script?.name}:DazMain.currentPageListType: this._currentPageListType:'${this._currentPageListType}'`);
+        //console.log(`Daz3DSupport:DazMain.currentPageListType: this._currentPageListType:'${this._currentPageListType}'`);
         return this._currentPageListType;
         // == PageListType.Invalid ?
         //                                     PageListType.Page :
         //                                     this._currentPageListType ?? PageListType.Page;
     }
     static get currentDazPageTypeAsStr() {
-        //console.log(`${appId}:DazMain.currentDazPageTypeAsStr: this._currentPageListType:'${this._currentPageListType}', this._currentPageListType.type:'${this._currentPageListType?.type}'.`);
+        //console.log(`Daz3DSupport:DazMain.currentDazPageTypeAsStr: this._currentPageListType:'${this._currentPageListType}', this._currentPageListType.type:'${this._currentPageListType?.type}'.`);
         return (this._currentPageListType ?? PageListType.Invalid).type;
     }
     static async getDazPageTypeAsync(debug = null) {
         // Determines PageListType and DazPageType
         const pageType = await this.#determineCurrentDazPageTypeAsync();
-        console.debug(`${GM_info?.script?.name}:DazMain.getDazPageTypeAsync: pageType:${pageType}, this.currentDazPageTypeAsStr:${this.currentDazPageTypeAsStr}.`);
+        console.debug(`Daz3DSupport:DazMain.getDazPageTypeAsync: pageType:${pageType}, this.currentDazPageTypeAsStr:${this.currentDazPageTypeAsStr}.`);
         return this.currentDazPageTypeAsStr;
 
         // return SelectorWithElement.waitForElement('#crumbs_clone', { timeoutMs: 2000 })
         // .then(((debug, breadcrumbDiv) => {
         //     const dazBreadcrumbId = breadcrumbDiv?.dataset?.dazBreadcrumbId;
         //     if (breadcrumbDiv == null) { // timed out
-        //         console.error(`${GM_info?.script?.name}:DazMeta.getDazPageTypeAsync: #crumbs_clone does not exist (timed out waiting): unknown (Other) page type.`);
+        //         console.error(`Daz3DSupport:DazMeta.getDazPageTypeAsync: #crumbs_clone does not exist (timed out waiting): unknown (Other) page type.`);
         //         return DazPageType.Other;
 
         //     } else if (dazBreadcrumbId.startsWith('product')) {
@@ -408,14 +408,14 @@ class DazMeta {
         //         return DazPageType.List;
 
         //     } else { // Unknown page type
-        //         console.error(`${GM_info?.script?.name}:getDazPageTypeAsync: unexpected page type, daz-breadcrumb-id:${breadcrumbId}`);
+        //         console.error(`Daz3DSupport:getDazPageTypeAsync: unexpected page type, daz-breadcrumb-id:${breadcrumbId}`);
         //         let altId = dazBreadcrumbId.match(/^(\D+)\d*$/i)?.[1] ?? "<Unknown>";
         //         return DazPageType.get(altId) ?? DazPageType.Unknown;
 
         //     }
         // }).bind(this, debug))
         // .catch((err) => {
-        //     console.error(`${GM_info?.script?.name}:DazMeta.getDazPageTypeAsync: error occured while determining page type, treating page as 'Unknown', err:${Support.buildInlineErrorStr(err)}.`);
+        //     console.error(`Daz3DSupport:DazMeta.getDazPageTypeAsync: error occured while determining page type, treating page as 'Unknown', err:${Support.buildInlineErrorStr(err)}.`);
         //     return PageType.Other;
         // });
     }
