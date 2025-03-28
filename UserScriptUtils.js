@@ -38,7 +38,8 @@ console.log(`%c${GM_info?.script?.name}: loading...`, 'color:#4060FF;');
 // (I think it's some kind of 'fix' for iPad Safari):
 document.addEventListener("touchstart", function() {}, false);
 
-function RestoreWindowsConsole(libId = GM_info?.script?.name) {
+function RestoreWindowsConsole(_libId = null) {
+    let libId = _libId ?? GM_info?.script?.name;
     try {
         const ogWindow = document.createElement('iframe');
         ogWindow.style.display = 'none';
@@ -65,7 +66,8 @@ function RestoreWindowsConsole(libId = GM_info?.script?.name) {
     }
 }
 
-function AddEruda(libId = GM_info?.script?.name, options = {}) {
+function AddEruda(_libId = null, options = {}) {
+    let libId = _libId ?? GM_info?.script?.name;
     const DefaultErudaPosition = { 
         x: 5,
         y: window.screen.height / 3,
@@ -79,23 +81,23 @@ function AddEruda(libId = GM_info?.script?.name, options = {}) {
  
     try {
         if (options?.fixConsole ?? true) {
-             RestoreWindowsConsole(GM_info.script.name);
+             RestoreWindowsConsole(libId);
         }
      
     } catch (err) {
-        const errMsg = `${GM_info.script.name}:AddEruda:Fixing Console: err: ${typeof err}: '${err.message}'.`;
+        const errMsg = `${libId}:AddEruda:Fixing Console: err: ${typeof err}: '${err.message}'.`;
         console.error(errMsg);
         alert(errMsg);
     }
 
     try {
         if (window.M3ERUDAINIT != null) {
-            console.log(`${GM_info.script.name}:AddEruda: Eruda Already Running, Jumping To (Re)Configuring Eruda`);
+            console.log(`${libId}:AddEruda: Eruda Already Running, Jumping To (Re)Configuring Eruda`);
             return;
         
         } else {
             window.M3ERUDAINIT = 'creating';
-            console.log(`${GM_info.script.name}:AddEruda: Starting eruda console...`);
+            console.log(`${libId}:AddEruda: Starting eruda console...`);
             eruda.init({
                    autoScale: true,
                 useShadowDom: true,
@@ -114,7 +116,7 @@ function AddEruda(libId = GM_info?.script?.name, options = {}) {
             window.M3ERUDAINIT = 'created';
         }
      } catch (err) {
-        const errMsg = `${GM_info.script.name}:AddEruda:Creating Eruda: err: ${typeof err}: '${err.message}'.`;
+        const errMsg = `${libId}:AddEruda:Creating Eruda: err: ${typeof err}: '${err.message}'.`;
         console.error(errMsg);
         alert(errMsg);
     }
@@ -136,16 +138,16 @@ function AddEruda(libId = GM_info?.script?.name, options = {}) {
         window.M3ERUDAINIT = 'running';
      
     } catch (err) {
-        const errMsg = `${GM_info.script.name}:AddEruda:Configuring Eruda: err: ${typeof err}: '${err.message}'.`;
+        const errMsg = `${libId}:AddEruda:Configuring Eruda: err: ${typeof err}: '${err.message}'.`;
         console.error(errMsg);
         alert(errMsg);
      
     } finally {
-        console.log(`${GM_info.script.name}:AddEruda: ...Complete.`);
+        console.log(`${libId}:AddEruda: ...Complete.`);
     }
 }
 
-class USL {
+class USU {
     static validJsonStartRe =
               new RegExp(/^\s*("?(\d+|[^a-zA-Z0-9]true\s|[^a-zA-Z0-9]false\s)"?)|\{|\[|""/, 'i');
     /* This comment fixes the incorrect syntax highlighting (bug) caused by the string above. */
@@ -179,7 +181,7 @@ class USL {
             }
         } catch (err) {
             if (displayErrors) {
-                console.error(`${appId}:USL.sessionStorageGet: Error, err:${this.buildInlineErrorStr(err)}`);
+                console.error(`${this.name}.sessionStorageGet: Error, err:${this.buildInlineErrorStr(err)}`);
             }
             value = null;
         }
@@ -192,7 +194,7 @@ class USL {
             sessionStorage.setItem(key, JSON.stringify(value));
         } catch (err) {
             if (displayErrors) {
-                console.error(`${GM_info.script.name}:USL.sessionStoragePut: Error, err:${this.buildInlineErrorStr(err)}`);
+                console.error(`${this.name}.sessionStoragePut: Error, err:${this.buildInlineErrorStr(err)}`);
             }
         }
     }
@@ -322,7 +324,7 @@ class USL {
         }
         let parentBlockElem = parentElemParam ?? document.body;
         if (parentBlockElem == null) {
-            const errStr = `${this?.name}.#injectScriptCore: parentBlockElem not found:'${parentBlockElem}', document.body:'${document?.body}', parentElemParam:'${parentElemParam}'`;
+            const errStr = `${this.name}.#injectScriptCore: parentBlockElem not found:'${parentBlockElem}', document.body:'${document?.body}', parentElemParam:'${parentElemParam}'`;
             console.error(errStr);
             throw new Error(errStr);
         }
@@ -350,7 +352,7 @@ class USL {
 
             } catch (err) {
                 const scriptIdStr = scriptAttr?.id == null ? '' : ` with id:'${scriptAttr.id}'`;
-                console.error(`${this?.name}.#injectScriptCore: error while inserting script${scriptIdStr}, err:${this.buildInlineErrorStr(err)}`);
+                console.error(`${this.name}.#injectScriptCore: error while inserting script${scriptIdStr}, err:${this.buildInlineErrorStr(err)}`);
                 throw err;
             }
         }
@@ -490,7 +492,7 @@ class USL {
             return rawStr;
 
         } else if ('string' !== rawStrType) {
-            console.error(`${GM_info.script.name}:USL.parseRawNumber: rawStr type is not number, string, or Node (type:'${rawStrType}'), rawStr:'${rawStr}'.`, rawStr);
+            console.error(`${this.name}.parseRawNumber: rawStr type is not number, string, or Node (type:'${rawStrType}'), rawStr:'${rawStr}'.`, rawStr);
             return null;
         }
 
@@ -561,7 +563,7 @@ class USL {
             relativeElement.insertAdjacentHTML(position, html);
             blockElement = document.getElementById(blockId);
             if (blockElement == null) {
-                console.error(`${GM_info.script.name}:insertAdjacentWithId: unable to create block with id:'${blockId}'`);
+                console.error(`${this.name}.insertAdjacentWithId: unable to create block with id:'${blockId}'`);
             }
         }
         return blockElement;
@@ -658,7 +660,7 @@ class USL {
             if (timeoutInMs > 0) {
                 var timeout = setTimeout(() => {
                     reject(`elementReady(${selector}) timed out at ${timeoutInMs}ms`);
-                    console.debug(`${GM_info.script.name}:elementReady(${selector}) timed out at ${timeoutInMs}ms`);
+                    console.debug(`${this.name}.elementReady(${selector}) timed out at ${timeoutInMs}ms`);
                 }, timeoutInMs);
             }
 
@@ -680,11 +682,11 @@ class USL {
             Date.MAX = new Date( 8640000000000000); // +275760-09-13T00:00:00.000Z (275,760 AD)
             Date.MIN = new Date(-8640000000000000); // -271821-04-20T00:00:00.000Z (271,822 BCE)
         }
-        this.name = GM_info.script.name;
+        this.name = `${GM_info?.script?.name}:USU`;
     }
 }
 
-console.log(`%c${GM_info.script.name}: loaded.`, 'color:#4060FF;');
+console.log(`%c${GM_info?.script?.name}: loaded.`, 'color:#4060FF;');
 
 
 
