@@ -5,7 +5,7 @@
 // @description Adds functionality to the Daz3D web site
 // ==/UserLibrary=
 //let libId = "UserScriptUtils";
-console.log(`%c${GM_info.script.name}: loading...`, 'color:#4060FF;');
+console.log(`%c${GM_info?.script?.name}: loading...`, 'color:#4060FF;');
 
 /* DEPENDANCIES:
     1) Imports (@requires)
@@ -38,7 +38,7 @@ console.log(`%c${GM_info.script.name}: loading...`, 'color:#4060FF;');
 // (I think it's some kind of 'fix' for iPad Safari):
 document.addEventListener("touchstart", function() {}, false);
 
-function RestoreWindowsConsole(libId = libId) {
+function RestoreWindowsConsole(libId = GM_info?.script?.name) {
     try {
         const ogWindow = document.createElement('iframe');
         ogWindow.style.display = 'none';
@@ -65,7 +65,7 @@ function RestoreWindowsConsole(libId = libId) {
     }
 }
 
-function AddEruda(libId = libId, options = {}) {
+function AddEruda(libId = GM_info?.script?.name, options = {}) {
     const DefaultErudaPosition = { 
         x: 5,
         y: window.screen.height / 3,
