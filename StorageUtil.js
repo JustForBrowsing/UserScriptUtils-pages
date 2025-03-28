@@ -4,7 +4,7 @@
 // @version     0.1.0
 // @description Support for persistent userscript storage
 // ==/UserLibrary=
-console.log(`%c${GM_info.script.name}: loading...`, 'color:#4060FF;');
+console.log(`%cStorageUtil: loading...`, 'color:#4060FF;');
 
 ////////////////////////////////////////////
 //// Local Storage management classes
@@ -100,11 +100,11 @@ class ScriptStorage {
 
         } catch (err) {
             if (err.name === 'QuotaExceededError') {
-                console.log(`${appId}:ScriptStorage.saveDiscountFilter: QuotaExceededError`);
+                console.log(`StorageUtil:ScriptStorage.saveDiscountFilter: QuotaExceededError`);
                 console.dir(err);
             } else {
-                console.error(`${appId}:ScriptStorage.saveDiscountFilter: err, discountFilterStorageKey:'${discountFilterStorageKey}', discountFilterValue:${discountFilterValue}, err:${Support.buildInlineErrorStr(err)}`);
-                console.error(`${appId}:ScriptStorage.saveDiscountFilter: err, dFV:${discountFilterValue}, err:${Support.buildInlineErrorStr(err)}`);
+                console.error(`StorageUtil:ScriptStorage.saveDiscountFilter: err, discountFilterStorageKey:'${discountFilterStorageKey}', discountFilterValue:${discountFilterValue}, err:${Support.buildInlineErrorStr(err)}`);
+                console.error(`StorageUtil:ScriptStorage.saveDiscountFilter: err, dFV:${discountFilterValue}, err:${Support.buildInlineErrorStr(err)}`);
             }
         }
     }
@@ -119,12 +119,12 @@ class ScriptStorage {
                     newValue = parseInt(storedValue, 10);
                 }
             } catch (err) {
-                console.error(`${appId}:ScriptStorage.readDiscountFilter: Either unable to read localStorage key ('${discountFilterStorageKey}') or unable to parse stored value ('${storedValue}'), err:${Support.buildInlineErrorStr(err)}`);
+                console.error(`StorageUtil:ScriptStorage.readDiscountFilter: Either unable to read localStorage key ('${discountFilterStorageKey}') or unable to parse stored value ('${storedValue}'), err:${Support.buildInlineErrorStr(err)}`);
             }
             ScriptStorage.saveDiscountFilter(newValue); // save the default value into memory
 
         } catch (err) {
-            console.error(`${appId}:ScriptStorage.readDiscountFilter: err, newValue:${newValue}, storedValue:'${storedValue}', err:`);
+            console.error(`StorageUtil:ScriptStorage.readDiscountFilter: err, newValue:${newValue}, storedValue:'${storedValue}', err:`);
             console.dir(err);
         }
         return newValue;
@@ -149,12 +149,12 @@ class StorageValue {
 
     constructor(storageKey, initialValue = null, storageArea = null, debug = false) {
         if (storageArea != null && !StorageValue.isStorageAvailable(storageArea)) {
-            throw new Support.StorageValueError(`${appId}:StorageValue.ctor: storageArea ('${storageArea}') is not available.`, 'storageArea', storageArea, null);
+            throw new Support.StorageValueError(`StorageUtil:StorageValue.ctor: storageArea ('${storageArea}') is not available.`, 'storageArea', storageArea, null);
         }
         this.#storageArea = storageArea ?? localStorage ?? window?.localStorage;
 
         if (storageKey == null) {
-            throw new Support.StorageValueError(`${appId}:DazLocalStorage.ctor: storageKey may not be null or blank.`, 'storageArea', String(storageArea), null);
+            throw new Support.StorageValueError(`StorageUtil:DazLocalStorage.ctor: storageKey may not be null or blank.`, 'storageArea', String(storageArea), null);
         }
         this.#key = storageKey;
 
@@ -169,7 +169,7 @@ class StorageValue {
             this.#storageArea.addEventListener('storage', this.onStorageEvent.bind(this));
 
         } catch(err) {
-            throw new Support.StorageValueError(`${appId}:StorageValue.ctor: error while attempting to add listener to storageArea's 'storage' event.`, 'storageKey', String(storageKey), err);
+            throw new Support.StorageValueError(`StorageUtil:StorageValue.ctor: error while attempting to add listener to storageArea's 'storage' event.`, 'storageKey', String(storageKey), err);
         }
     }
 
@@ -181,18 +181,18 @@ class StorageValue {
 
     get value() {
         if (this.isItemDeleted) {
-            throw new Support.StorageValueError(`${appId}:StorageValue.value(get): cannot retrieve item value, item has been deleted.`, 'isItemDeleted', this.isItemDeleted, null);
+            throw new Support.StorageValueError(`StorageUtil:StorageValue.value(get): cannot retrieve item value, item has been deleted.`, 'isItemDeleted', this.isItemDeleted, null);
         }
         return this.#value;
     }
 
     set value(newValue) {
         if (this.isItemDeleted) {
-            throw new Support.StorageValueError(`${appId}:StorageValue.value(set): cannot set item value, item has been deleted.`, 'newValue', newValue, null);
+            throw new Support.StorageValueError(`StorageUtil:StorageValue.value(set): cannot set item value, item has been deleted.`, 'newValue', newValue, null);
         }
 
         if (newValue == null) {
-            throw new Support.StorageValueError(`${appId}:StorageValue.value(set): cannot set item value to null, newValue:'${String(newValue)}'.`, 'newValue', newValue, null);
+            throw new Support.StorageValueError(`StorageUtil:StorageValue.value(set): cannot set item value to null, newValue:'${String(newValue)}'.`, 'newValue', newValue, null);
 
         } else {
             this.#value = newValue;
@@ -254,7 +254,7 @@ class StorageValue {
 
             } else {
                 // unexpected state (should have been handled by 'storage clear' state, above)
-                console.error(`${appId}:StorageValue.onStorageEvent: unexpected state (should have been handled as a 'storage clear', newValue:'${newValue}', oldValue:'${oldValue}'.`);
+                console.error(`StorageUtil:StorageValue.onStorageEvent: unexpected state (should have been handled as a 'storage clear', newValue:'${newValue}', oldValue:'${oldValue}'.`);
             }
         }
     }
@@ -273,7 +273,7 @@ class StorageValue {
             if (err instanceof Support.ScriptStorageError) {
                 return null;
             }
-            throw new Support.StorageValueError(`${appId}:StorageValue.#readValue: unexpected error while getting or decoding value from storageArea key:'${this.key}'.`, 'rawValue', rawValue, null);
+            throw new Support.StorageValueError(`StorageUtil:StorageValue.#readValue: unexpected error while getting or decoding value from storageArea key:'${this.key}'.`, 'rawValue', rawValue, null);
         }
     }
 
@@ -291,7 +291,7 @@ class StorageValue {
             //                                 this.#storedValueIndent);
 
         } catch(err) {
-            throw new Support.StorageValueError(`${appId}:StorageValue.#writeValue: unexpected error while encoding value for storageArea key:'${this.key}'.`, 'value', this.value, err);
+            throw new Support.StorageValueError(`StorageUtil:StorageValue.#writeValue: unexpected error while encoding value for storageArea key:'${this.key}'.`, 'value', this.value, err);
         }
 
         const storedValue = {
@@ -302,7 +302,7 @@ class StorageValue {
             this.storageArea.setItem(this.key, storedValue);
 
         } catch(err) {
-            throw new Support.StorageValueError(`${appId}:StorageValue.#writeValue: unexpected error while attempting to set value of storageArea key:'${this.key}'.`, 'storedValue', storedValue, err);
+            throw new Support.StorageValueError(`StorageUtil:StorageValue.#writeValue: unexpected error while attempting to set value of storageArea key:'${this.key}'.`, 'storedValue', storedValue, err);
         }
     }
 
@@ -350,7 +350,7 @@ class StorageValue {
 
             } catch (err) {
                 //DEBUG: fishing for the specific error
-                console.debug(`${appId}:StorageValue.jsonReviver: error unpacking buffer, key:'${key}' = '${value?.slice(0, 40)}', err:${err}`);
+                console.debug(`StorageUtil:StorageValue.jsonReviver: error unpacking buffer, key:'${key}' = '${value?.slice(0, 40)}', err:${err}`);
 
                 return value;         // Failed: assume it was not base64 encoded
             }
