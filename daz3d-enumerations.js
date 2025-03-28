@@ -7,7 +7,8 @@
 
 // (async () => {
 if (null != window?.Enum) {
-    window.Enum = await import("https://cdn.jsdelivr.net/npm/enum@3.0.4/index.min.js");
+    let enumModule = await import("https://cdn.jsdelivr.net/npm/enum@3.0.4/index.min.js");
+    window.Enum = enumModule.Enum;
 }
 // })();
 console.log(`%cDaz3DEnumerations: loading...`, 'color:#4060FF;')
@@ -64,7 +65,7 @@ BundleStatus.freezeEnums(); // Permanently freeze the
  * Enum for reason to buy (or not to buy) a product
  * @readonly
  * @enum {string,string}
- */
+ */ 
 const ReasonToBuy = new Enum({  // enum: { type: 'wanted or not', desc: "description text" }
     Invalid:        { type: 'Invalid',   desc: "Invalid ReasonToBuy -- internal error." },
     // Items that are not wanted
@@ -193,14 +194,13 @@ const ItemDisplay = new Enum({      // enum: { class: 'associated CSS class', de
     }, 
     { name: 'ItemDisplay', ignoreCase: true, freeze: false }
 );
-LicenseStatus.VisibleEnums = [ LicenseStatus.Default, LicenseStatus.Discounted,
-                               LicenseStatus.Normal, LicenseStatus.Grayed ];
-LicenseStatus.isVisible = function isWanted(enumVal) {
-    return LicenseStatus.VisibleEnums.includes(LicenseStatus.get(enumVal));
+ItemDisplay.VisibleEnums = [ ItemDisplay.Default, ItemDisplay.Discounted,
+                             ItemDisplay.Normal,  ItemDisplay.Grayed ];
+ItemDisplay.isVisible = function isWanted(enumVal) {
+    return ItemDisplay.VisibleEnums.includes(ItemDisplay.get(enumVal));
 }
 ItemDisplay.enums.forEach((e) => { e.class = e.value.class; e.desc = e.value.desc; });
 ItemDisplay.freezeEnums(); // Permanently freeze the enum
-
 
 /**
  * Daz3D item type (DazPlus status)
@@ -257,7 +257,6 @@ const PageListType = new Enum({     // enum: { desc: "description text" }
 PageListType.enums.forEach((e) => { e.type = e.value.type; e.desc = e.value.desc; });
 PageListType.freezeEnums(); // Permanently freeze the enum
 
-
 /**
  * What kind of shaders does the item support
  * @readonly
@@ -277,7 +276,9 @@ const ShaderType = new Enum({       // enum: { desc: "description text" }
 ShaderType.enums.forEach((e) => { e.usable = e.value.usable; e.desc = e.value.desc; });
 ShaderType.freezeEnums(); // Permanently freeze the enum
 
-
+export { BundleStatus,  ReasonToBuy,  PriorityToBuy, 
+         LicenseStatus, ItemDisplay,  DazItemType, 
+         DazPageType,   PageListType, ShaderType };
 
 
 
