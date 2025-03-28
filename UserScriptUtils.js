@@ -38,15 +38,14 @@ console.log(`%cUserScriptUtils: loading...`, 'color:#4060FF;');
 // (I think it's some kind of 'fix' for iPad Safari):
 document.addEventListener("touchstart", function() {}, false);
 
-function RestoreWindowsConsole(_libId = null) {
-    let libId = _libId ?? "UserScriptUtils";
+function RestoreWindowsConsole(_libId = "UserScriptUtils") {
     try {
         const ogWindow = document.createElement('iframe');
         ogWindow.style.display = 'none';
         document.body.appendChild(ogWindow);
         if (window.console !== ogWindow?.contentWindow?.console &&
             ogWindow?.contentWindow?.console != null) {
-            console.warn(`${libId}:RestoreWindowsConsole: found an altered console:'...', repairing!`);
+            console.warn(`${_libId}:RestoreWindowsConsole: found an altered console:'...', repairing!`);
             if (ogWindow.contentWindow.console && 
                 ogWindow.contentWindow.console.log) {
                 window.console = ogWindow.contentWindow.console;
@@ -58,16 +57,15 @@ function RestoreWindowsConsole(_libId = null) {
             try {
                 ogWindow?.parentNode?.removeChild(ogWindow);
             } catch (err) {
-                console.warn(`${libId}:RestoreWindowsConsole: Unable delete unused iframe, err: ${typeof err}: '${err.message}'.`);
+                console.warn(`${_libId}:RestoreWindowsConsole: Unable delete unused iframe, err: ${typeof err}: '${err.message}'.`);
             }
         }
     } catch(err) {
-        console.error(`${libId}:RestoreWindowsConsole: error while fixing altered console, err: ${typeof err}: '${err.message}'.`, err);
+        console.error(`${_libId}:RestoreWindowsConsole: error while fixing altered console, err: ${typeof err}: '${err.message}'.`, err);
     }
 }
 
-function AddEruda(_libId = null, options = {}) {
-    let libId = _libId ?? "UserScriptUtils";
+function AddEruda(_libId = "UserScriptUtils", options = {}) {
     const DefaultErudaPosition = { 
         x: 5,
         y: window.screen.height / 3,
@@ -81,23 +79,23 @@ function AddEruda(_libId = null, options = {}) {
  
     try {
         if (options?.fixConsole ?? true) {
-             RestoreWindowsConsole(libId);
+             RestoreWindowsConsole(_libId);
         }
      
     } catch (err) {
-        const errMsg = `${libId}:AddEruda:Fixing Console: err: ${typeof err}: '${err.message}'.`;
+        const errMsg = `${_libId}:AddEruda:Fixing Console: err: ${typeof err}: '${err.message}'.`;
         console.error(errMsg);
         alert(errMsg);
     }
 
     try {
         if (window.M3ERUDAINIT != null) {
-            console.log(`${libId}:AddEruda: Eruda Already Running, Jumping To (Re)Configuring Eruda`);
+            console.log(`${_libId}:AddEruda: Eruda Already Running, Jumping To (Re)Configuring Eruda`);
             return;
         
         } else {
             window.M3ERUDAINIT = 'creating';
-            console.log(`${libId}:AddEruda: Starting eruda console...`);
+            console.log(`${_libId}:AddEruda: Starting eruda console...`);
             eruda.init({
                    autoScale: true,
                 useShadowDom: true,
@@ -116,7 +114,7 @@ function AddEruda(_libId = null, options = {}) {
             window.M3ERUDAINIT = 'created';
         }
      } catch (err) {
-        const errMsg = `${libId}:AddEruda:Creating Eruda: err: ${typeof err}: '${err.message}'.`;
+        const errMsg = `${_libId}:AddEruda:Creating Eruda: err: ${typeof err}: '${err.message}'.`;
         console.error(errMsg);
         alert(errMsg);
     }
@@ -138,12 +136,12 @@ function AddEruda(_libId = null, options = {}) {
         window.M3ERUDAINIT = 'running';
      
     } catch (err) {
-        const errMsg = `${libId}:AddEruda:Configuring Eruda: err: ${typeof err}: '${err.message}'.`;
+        const errMsg = `${_libId}:AddEruda:Configuring Eruda: err: ${typeof err}: '${err.message}'.`;
         console.error(errMsg);
         alert(errMsg);
      
     } finally {
-        console.log(`${libId}:AddEruda: ...Complete.`);
+        console.log(`${_libId}:AddEruda: ...Complete.`);
     }
 }
 
