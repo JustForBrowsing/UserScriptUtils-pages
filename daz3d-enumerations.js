@@ -4,6 +4,11 @@
 // @version     0.1.0
 // @description Adds functionality to the Daz3D web site
 // ==/UserLibrary=
+
+// (async () => 
+if (null != window?.Enum) {
+window.Enum = await import("https://cdn.jsdelivr.net/npm/enum@3.0.4/index.min.js");
+// })();
 console.log(`%cDaz3DEnumerations: loading...`, 'color:#4060FF;')
         
 // const Enum = import('https://raw.githubusercontent.com/adrai/enum/master/dist/enum-3.0.4.min.js');
