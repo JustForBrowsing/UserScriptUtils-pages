@@ -8,8 +8,9 @@
 // (async () => {
 if (null != window?.Enum) {
     let enumModule = await import("https://cdn.jsdelivr.net/npm/enum@3.0.4/index.min.js");
-    window.Enum = enumModule.Enum;
+    window.Enum = enumModule.default;
 }
+
 // })();
 console.log(`%cDaz3DEnumerations: loading...`, 'color:#4060FF;')
         
