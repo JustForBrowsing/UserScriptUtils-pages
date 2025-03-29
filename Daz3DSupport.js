@@ -4,6 +4,8 @@
 // @version     0.1.0
 // @description Adds functionality to the Daz3D web site
 // ==/UserLibrary
+// Dependancies: Daz3DEnumerations
+
 console.log(`%cDaz3DSupport: loading...`, 'color:#4060FF;');
 /*
  * static class with Daz related support functions
