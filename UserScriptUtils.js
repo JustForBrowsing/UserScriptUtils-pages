@@ -4,6 +4,9 @@
 // @version     0.1.0
 // @description Adds functionality to the Daz3D web site
 // ==/UserLibrary=
+// Dependencies: Daz3D
+
+
 //let libId = "UserScriptUtils";
 console.log(`%cUserScriptUtils: loading...`, 'color:#4060FF;');
 
