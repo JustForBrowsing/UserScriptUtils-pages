@@ -5,9 +5,10 @@
 // @description Adds functionality to the Daz3D web site
 // ==/UserLibrary=
 
+/*
 // (async () => {
 try {
-    if (null != window?.Enum) {
+    if (window.Enum == null) {
         let enumModule = await import("https://cdn.jsdelivr.net/npm/enum@3.0.4/index.min.js");
         window.Enum = enumModule.default;
     }
@@ -15,6 +16,7 @@ try {
     alert("couldn't load Enum");
 }
 // })();
+*/
 console.log(`%cDaz3DEnumerations: loading...`, 'color:#4060FF;')
         
 // const Enum = import('https://raw.githubusercontent.com/adrai/enum/master/dist/enum-3.0.4.min.js');
@@ -280,10 +282,11 @@ const ShaderType = new Enum({       // enum: { desc: "description text" }
 ShaderType.enums.forEach((e) => { e.usable = e.value.usable; e.desc = e.value.desc; });
 ShaderType.freezeEnums(); // Permanently freeze the enum
 
+/*
 export { BundleStatus,  ReasonToBuy,  PriorityToBuy, 
          LicenseStatus, ItemDisplay,  DazItemType, 
          DazPageType,   PageListType, ShaderType };
-
+*/
 
 
 
