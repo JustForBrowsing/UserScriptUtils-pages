@@ -11,7 +11,7 @@ console.log(`%cDaz3DSupport: loading...`, 'color:#4060FF;');
  * static class with Daz related support functions
  */
 
-/*
+
 class DazMeta {
     static DiscountRegEx = new RegExp(/-?(\d+)\s?\%/, 'i');
 
@@ -478,9 +478,4 @@ class DazMeta {
         this.constructorStatic();
     }
 }
-*/
-/*
-export {
-    DazMeta
-}
-*/
+
