@@ -486,6 +486,11 @@ class DazMeta {
 
 } catch (err) {
     config errStr = `DazMeta:ERROR: ${typeof err}, ${err?.message}.`;
+    document.body.insertAdjacentHTML('beforeend', `
+        <div style="position:absolute;bottom:20px;left:20px;padding:20px;">${errStr}</div>
+    `);
+
+    
     alert(errStr);
     console.error(errStr);
 }
