@@ -10,28 +10,37 @@
 // Dependancies: Daz3DEnumerations
 */
 
-function elog(msg, ...args) {
-    let elogDiv = document.getElementById('elog');
-    if (elogDiv == null) {
-        document.body.insertAdjacentHTML('beforeend', 
-         `<div id="elog" class="elogframe" 
-               style="position:absolute;width:100%;height:100%;z-index:99999;color:white;background:black;bottom:20px;left:20px;padding:20px;"></div>`);
+if (window?.elog == null) {
+    window.elog = (msg) => {
+        let elogDiv = document.getElementById('elog');
+        if (elogDiv == null) {
+            document.body.insertAdjacentHTML('beforeend',
+             `<div id="elog" class="elogframe"
+                   style="overflow-y:scroll;position:sticky;width:100%;max-width:400px;height:100%;max-height:200px;z-index:99999;opacity:0.55;color:white;background-color:black;bottom:20px;left:20px;padding:10px;">
+                  <div class="elogmsg">elog:running...</div>
+                  <div class="elogmsg">elog:running 2...</div>
+             </div>`);
+        }
+        elogDiv = document.getElementById('elog');
+        if (elogDiv == null) {
+            //alert("WTF");
+        }
+        const logMsg = `elog:${msg}.`;
+        elogDiv.insertAdjacentHTML('afterbegin', `
+            <div class="elogmsg">${logMsg}</div>
+        `);
+        window?.console?.error(logMsg);
     }
-    elogDiv = document.getElementById('elog');
-    const logMsg = `elog:${String.format(msg, ...args)}.`;
-    elogDiv.insertAdjacentHTML('beforeend', `
-        <div class="elogmsg">${logMsg}</div>
-    `);
 }
 
-elog('Daz3DSupport: starting');
+window.elog('Daz3DSupport: starting');
 console.log(`%cDaz3DSupport: loading...`, 'color:#4060FF;');
 /*
  * static class with Daz related support functions
  */
 
 try {
-elog('Daz3DSupport: in try');
+window.elog('Daz3DSupport: in try');
     
 class DazMeta {
     static DiscountRegEx = new RegExp(/-?(\d+)\s?\%/, 'i');
@@ -502,7 +511,7 @@ class DazMeta {
 
 } catch (err) {
     const errStr = `DazMeta:ERROR: ${typeof err}, ${err?.message}.`;
-    elog(errStr);
+    window.elog(errStr);
     alert(errStr);
     console.error(errStr);
 }
