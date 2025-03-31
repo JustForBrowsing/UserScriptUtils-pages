@@ -1,11 +1,10 @@
 // ==UserLibrary==
-// @name        UserScriptUtils
-// @author      Me
-// @version     0.1.0
-// @description Adds functionality to the Daz3D web site
-// ==/UserLibrary=
+// @name            UserScriptUtils
+// @author          Me
+// @version         0.1.2
+// @description     Adds functionality to the Daz3D web site
+// ==/UserLibrary==
 // Dependencies: Daz3D
-
 
 //let libId = "UserScriptUtils";
 console.log(`%cUserScriptUtils: loading...`, 'color:#4060FF;');
@@ -687,12 +686,6 @@ class USU {
     }
 }
 console.log(`%cUserScriptUtils: loaded.`, 'color:#4060FF;');
-
-export {
-    RestoreWindowsConsole as RestoreWindowsConsole,
-                 AddEruda as AddEruda,
-                      USU as USU,
-};
 
 
 
