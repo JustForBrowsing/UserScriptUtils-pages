@@ -15,24 +15,24 @@ if (window?.elog == null) {
         let elogDiv = document.getElementById('elog');
         if (elogDiv == null) {
             document.body.insertAdjacentHTML('beforeend',
-             `<div id="elog" class="elogframe"
-                   style="overflow-y:scroll;position:sticky;width:100%;max-width:400px;height:100%;max-height:200px;z-index:99999;opacity:0.55;color:white;background-color:black;bottom:20px;left:20px;padding:10px;">
+                                             `<div id="elogcontainer" class="elogframe"
+               style="overflow-y:scroll;position:sticky;width:100%;max-width:400px;height:100%;max-height:200px;z-index:99999;opacity:0.55;color:white;background-color:black;bottom:20px;left:20px;padding:10px;">
+              <div id="elogheader" style="top:0;left:0;right:0;height:10px:background-color:#000080;"></div>
+              <div id="elog" class="elogframe">
                   <div class="elogmsg">elog:running...</div>
-                  <div class="elogmsg">elog:running 2...</div>
-             </div>`);
+              </div>
+         </div>`);
         }
         elogDiv = document.getElementById('elog');
         if (elogDiv == null) {
             //alert("WTF");
         }
         const logMsg = `elog:${msg}.`;
-        elogDiv.insertAdjacentHTML('afterbegin', `
-            <div class="elogmsg">${logMsg}</div>
-        `);
+        elogDiv.insertAdjacentHTML('afterbegin', 
+                                   `<div class="elogmsg">${logMsg}</div>`);
         window?.console?.error(logMsg);
     }
 }
-
 window.elog('Daz3DSupport: starting');
 console.log(`%cDaz3DSupport: loading...`, 'color:#4060FF;');
 /*
