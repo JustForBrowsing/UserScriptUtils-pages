@@ -14,7 +14,9 @@ console.log(`%cDaz3DSupport: loading...`, 'color:#4060FF;');
  * static class with Daz related support functions
  */
 
+try {
 
+    
 class DazMeta {
     static DiscountRegEx = new RegExp(/-?(\d+)\s?\%/, 'i');
 
@@ -482,6 +484,13 @@ class DazMeta {
     }
 }
 
+} catch (err) {
+    config errStr = `DazMeta:ERROR: ${typeof err}, ${err?.message}.`;
+    alert(errStr);
+    console.error(errStr);
+}
+
+    
 
 
 
