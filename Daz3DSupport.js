@@ -9,7 +9,7 @@
 // ==/User  Library==
 // Dependancies: Daz3DEnumerations
 */
-
+/*
 if (window?.elog == null) {
     window.elog = (msg) => {
         let elogDiv = document.getElementById('elog');
@@ -33,6 +33,7 @@ if (window?.elog == null) {
         window?.console?.error(logMsg);
     }
 }
+*/
 window.elog('Daz3DSupport: starting');
 console.log(`%cDaz3DSupport: loading...`, 'color:#4060FF;');
 /*
