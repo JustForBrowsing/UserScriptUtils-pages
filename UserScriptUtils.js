@@ -6,6 +6,8 @@
 // ==/UserLibrary==
 // Dependencies: Daz3D
 
+(async () => {
+    
 //let libId = "UserScriptUtils";
 console.log(`%cUserScriptUtils: loading...`, 'color:#4060FF;');
 
@@ -39,7 +41,7 @@ console.log(`%cUserScriptUtils: loading...`, 'color:#4060FF;');
 // I can't remember why I wanted/needed this...
 // (I think it's some kind of 'fix' for iPad Safari):
 document.addEventListener("touchstart", function() {}, false);
-
+/*
 function RestoreWindowsConsole(_libId = "UserScriptUtils") {
     try {
         const ogWindow = document.createElement('iframe');
@@ -146,7 +148,7 @@ function AddEruda(_libId = "UserScriptUtils", options = {}) {
         console.log(`${_libId}:AddEruda: ...Complete.`);
     }
 }
-
+*/
 class USU {
     static validJsonStartRe =
               new RegExp(/^\s*("?(\d+|[^a-zA-Z0-9]true\s|[^a-zA-Z0-9]false\s)"?)|\{|\[|""/, 'i');
@@ -687,7 +689,7 @@ class USU {
 }
 console.log(`%cUserScriptUtils: loaded.`, 'color:#4060FF;');
 
-
+})();
 
 
 
