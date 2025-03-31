@@ -501,7 +501,7 @@ class DazMeta {
 }
 
 } catch (err) {
-    config errStr = `DazMeta:ERROR: ${typeof err}, ${err?.message}.`;
+    const errStr = `DazMeta:ERROR: ${typeof err}, ${err?.message}.`;
     elog(errStr);
     alert(errStr);
     console.error(errStr);
