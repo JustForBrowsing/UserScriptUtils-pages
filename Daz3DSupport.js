@@ -1,12 +1,12 @@
 
 
 /*
-// ==UserLibrary==
+// ==User  Library==
 // @name            Daz3DSupport
 // @author          Me
 // @version         0.1.1
 // @description     Adds functionality to the Daz3D web site
-// ==/UserLibrary==
+// ==/User  Library==
 // Dependancies: Daz3DEnumerations
 */
 console.log(`%cDaz3DSupport: loading...`, 'color:#4060FF;');
