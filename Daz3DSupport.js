@@ -18,6 +18,7 @@ function elog(msg, ...args) {
                style="position:absolute;width:100%;height:100%;z-index:99999;color:white;background:black;bottom:20px;left:20px;padding:20px;"></div>`);
     }
     elogDiv = document.getElementById('elog');
+    const logMsg = `elog:${String.format(msg, ...args)}.`;
     elogDiv.insertAdjacentHTML('beforeend', `
         <div class="elogmsg">${logMsg}</div>
     `);
