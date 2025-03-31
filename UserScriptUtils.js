@@ -1,13 +1,12 @@
-/*
-
 // ==UserLibrary==
 // @name            UserScriptUtils
 // @author          Me
 // @version         0.1.2
 // @description     Adds functionality to the Daz3D web site
 // ==/UserLibrary==
+
 // Dependencies: Daz3D
-*/
+
 //(async () => {
 try {
 //let libId = "UserScriptUtils";
