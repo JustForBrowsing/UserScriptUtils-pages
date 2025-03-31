@@ -9,13 +9,28 @@
 // ==/User  Library==
 // Dependancies: Daz3DEnumerations
 */
+
+function elog(msg, ...args) {
+    let elogDiv = document.getElementById('elog');
+    if (elogDiv == null) {
+        document.body.insertAdjacentHTML('beforeend', 
+         `<div id="elog" class="elogframe" 
+               style="position:absolute;width:100%;height:100%;z-index:99999;color:white;background:black;bottom:20px;left:20px;padding:20px;"></div>`);
+    }
+    elogDiv = document.getElementById('elog');
+    elogDiv.insertAdjacentHTML('beforeend', `
+        <div class="elogmsg">${logMsg}</div>
+    `);
+}
+
+elog('Daz3DSupport: starting');
 console.log(`%cDaz3DSupport: loading...`, 'color:#4060FF;');
 /*
  * static class with Daz related support functions
  */
 
 try {
-
+elog('Daz3DSupport: in try');
     
 class DazMeta {
     static DiscountRegEx = new RegExp(/-?(\d+)\s?\%/, 'i');
@@ -486,16 +501,12 @@ class DazMeta {
 
 } catch (err) {
     config errStr = `DazMeta:ERROR: ${typeof err}, ${err?.message}.`;
-    document.body.insertAdjacentHTML('beforeend', `
-        <div style="position:absolute;bottom:20px;left:20px;padding:20px;">${errStr}</div>
-    `);
-
-    
+    elog(errStr);
     alert(errStr);
     console.error(errStr);
 }
 
-    
+
 
 
 
