@@ -1,3 +1,5 @@
+/*
+
 // ==UserLibrary==
 // @name            UserScriptUtils
 // @author          Me
@@ -5,8 +7,8 @@
 // @description     Adds functionality to the Daz3D web site
 // ==/UserLibrary==
 // Dependencies: Daz3D
-
-(async () => {
+*/
+//(async () => {
 try {
 //let libId = "UserScriptUtils";
 console.log(`%cUserScriptUtils: loading...`, 'color:#4060FF;');
@@ -689,11 +691,11 @@ class USU {
 }
 console.log(`%cUserScriptUtils: loaded.`, 'color:#4060FF;');
 } catch (wrapErr) {
-    const errMsg = `UserScriptUtils:Unhandled Error: ${typeof wrapErr}, ${wrapErr.message}`;
-    console.error(errMsg);
-    alert(errMsg);
+    const errMsg = `UserScriptUtils:Unhandled Error: ${typeof wrapErr}, ${wrapErr?.message}`;
+    window?.console.error(errMsg);
+    window?.alert(errMsg);
 }
-})();
+//})();
 
 
 
