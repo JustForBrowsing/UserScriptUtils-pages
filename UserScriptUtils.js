@@ -7,7 +7,7 @@
 // Dependencies: Daz3D
 
 (async () => {
-    
+try {
 //let libId = "UserScriptUtils";
 console.log(`%cUserScriptUtils: loading...`, 'color:#4060FF;');
 
@@ -688,7 +688,11 @@ class USU {
     }
 }
 console.log(`%cUserScriptUtils: loaded.`, 'color:#4060FF;');
-
+} catch (wrapErr) {
+    const errMsg = `UserScriptUtils:Unhandled Error: ${typeof wrapErr}, ${wrapErr.message}`;
+    console.error(errMsg);
+    alert(errMsg);
+}
 })();
 
 
