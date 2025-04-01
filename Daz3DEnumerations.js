@@ -1,9 +1,14 @@
+
+
+/*
 // ==UserLibrary==
 // @name        Daz3DEnumerations
 // @author      Me
 // @version     0.1.0
 // @description Adds functionality to the Daz3D web site
 // ==/UserLibrary=
+*/
+
 
 /*
 // (async () => {
