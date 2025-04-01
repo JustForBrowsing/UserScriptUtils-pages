@@ -34,6 +34,9 @@ if (window?.elog == null) {
     }
 }
 */
+window.elog = (...args) => { }; 
+
+
 const initialMinDiscount = 80;
 
 window.elog('Daz3DSupport: starting');
