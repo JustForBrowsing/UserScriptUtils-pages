@@ -34,6 +34,8 @@ if (window?.elog == null) {
     }
 }
 */
+const initialMinDiscount = 80;
+
 window.elog('Daz3DSupport: starting');
 console.log(`%cDaz3DSupport: loading...`, 'color:#4060FF;');
 /*
