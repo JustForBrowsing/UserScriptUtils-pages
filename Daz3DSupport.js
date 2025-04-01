@@ -1,14 +1,13 @@
-
-
-/*
 // ==User  Library==
 // @name            Daz3DSupport
 // @author          Me
 // @version         0.1.1
 // @description     Adds functionality to the Daz3D web site
 // ==/User  Library==
+
+
 // Dependancies: Daz3DEnumerations
-*/
+
 /*
 if (window?.elog == null) {
     window.elog = (msg) => {
@@ -34,19 +33,19 @@ if (window?.elog == null) {
     }
 }
 */
-window.elog = (...args) => { }; 
+//window.elog = (...args) => { }; 
 
 
 const initialMinDiscount = 80;
 
-window.elog('Daz3DSupport: starting');
+//window.elog('Daz3DSupport: starting');
 console.log(`%cDaz3DSupport: loading...`, 'color:#4060FF;');
 /*
  * static class with Daz related support functions
  */
 
 try {
-window.elog('Daz3DSupport: in try');
+//window.elog('Daz3DSupport: in try');
     
 class DazMeta {
     static DiscountRegEx = new RegExp(/-?(\d+)\s?\%/, 'i');
@@ -515,9 +514,10 @@ class DazMeta {
     }
 }
 
-} catch (err) {
-    const errStr = `DazMeta:ERROR: ${typeof err}, ${err?.message}.`;
-    window.elog(errStr);
+} catch (wrapErr) {
+    const errType = typeof wrapErr;
+    const errStr = `DazMeta:ERROR: ${errType}, ${wrapErr?.message}.`;
+    //window.elog(errStr);
     alert(errStr);
     console.error(errStr);
 }
