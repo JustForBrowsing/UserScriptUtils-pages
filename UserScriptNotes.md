@@ -1,4 +1,37 @@
 
+## Safari Javascript Console Commands:
+
+
+
+
+
+
+
+console.assert(expression, object)
+console.clear()
+console.count([title])
+console.debug(object)
+console.dir(object)
+console.dirxml(node)
+console.error(object)
+console.group([title])
+console.groupEnd()
+console.info(object)
+console.log(object)
+console.markTimeline(label)
+console.profile([title])
+console.profileEnd([title])
+console.time(name)
+console.timeEnd(name)
+console.trace()
+console.warn(object)
+debugger
+
+
+
+
+
+
 ## Useful Libraries
 ### pretty-checkbox
 | @require | https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css |
