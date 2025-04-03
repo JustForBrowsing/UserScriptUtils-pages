@@ -25,20 +25,16 @@ Adapted (to not be a module) from
     https://cdn.jsdelivr.net/npm/safe-stable-stringify@2.5.0/index.min.js
 by JustForBrowsing, (C) 2025
 */
-// use UMD pattern
+// use UMD pattern to prevent all of the support stuff becomming part of the main namespace 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
     (global.safeStableStringify = factory());
-}(this, (function () { 'use strict';
-
-
-// wrap to prevent all of the becomming part of the main namespace 
-// (only need stringify and configure
+}(this, (function () { 'use strict'
 
 const { hasOwnProperty } = Object.prototype
 
-let stringify = configure();
+const stringify = configure();
   
 // eslint-disable-next-line no-control-regex
 const strEscapeSequencesRegExp = /[\u0000-\u001f\u0022\u005c\ud800-\udfff]/
@@ -190,7 +186,7 @@ function getStrictOption (options) {
   }
 }
 
-configure = configure (options) => {
+function configure (options) {
   options = { ...options }
   const fail = getStrictOption(options)
   if (fail) {
