@@ -150,6 +150,49 @@ function AddEruda(_libId = "UserScriptUtils", options = {}) {
     }
 }
 */
+
+//// generate-selector
+//   adapted [to not be a module :)] from
+//    https://www.jsdelivr.com/package/npm/@jcsj/generate-selector?tab=files&path=lib
+/**
+ * @param elem
+ * Note that CSS nth-child starts at 1
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-child#syntax
+ */
+function gsIndexOf(elem) {
+    let i = 1;
+    for (const child of elem.parentElement.children) {
+        if (elem.isSameNode(child))
+            return i;
+        i++;
+    }
+}
+function gsNthChild(l) {
+    return `${l.tagName}:nth-child(${gsIndexOf(l)})`;
+}
+/**
+ * Based on: https://stackoverflow.com/questions/8588301/how-to-generate-unique-css-selector-for-dom-element
+ * @param {Element} ancestor stops here, defaults to `document.body`
+ */
+function generateSelector(elem, ancestor = document.body) {
+    let path = [], parent;
+    while (parent = elem.parentElement) {
+        if (ancestor.isSameNode(parent))
+            break;
+        if (elem.id && !elem.id.includes('.')) {
+            path.push("#" + elem.id);
+            break;
+        }
+        path.push(gsNthChild(elem));
+        elem = parent;
+    }
+    return path
+        .reverse()
+        .join(' > ');
+}
+
+
+    
 class USU {
     static validJsonStartRe =
               new RegExp(/^\s*("?(\d+|[^a-zA-Z0-9]true\s|[^a-zA-Z0-9]false\s)"?)|\{|\[|""/, 'i');
