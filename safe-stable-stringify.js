@@ -21,29 +21,20 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Adapted (to not be a module) by JustForBrowsing, (C) 2025
+Adapted (to not be a module) from 
+    https://cdn.jsdelivr.net/npm/safe-stable-stringify@2.5.0/index.min.js
+by JustForBrowsing, (C) 2025
 */
 'use strict'
 
+// wrap to prevent all of the becomming part of the main namespace 
+// (only need stringify and configure
+const {stringify, stringifyConfigure} = (() => {  
+
 const { hasOwnProperty } = Object.prototype
 
-const stringify = configure()
-(() => {  // prevent all of the becomming part of the main namespace (only need stringify
-// @ts-expect-error
-stringify.configure = configure
-// @ts-expect-error
-stringify.stringify = stringify
-
-// @ts-expect-error
-stringify.default = stringify
-
-// @ts-expect-error used for named export
-exports.stringify = stringify
-// @ts-expect-error used for named export
-exports.configure = configure
-
-// module.exports = stringify
-
+stringify = configure();
+  
 // eslint-disable-next-line no-control-regex
 const strEscapeSequencesRegExp = /[\u0000-\u001f\u0022\u005c\ud800-\udfff]/
 
@@ -194,7 +185,7 @@ function getStrictOption (options) {
   }
 }
 
-function configure (options) {
+configure = configure (options) => {
   options = { ...options }
   const fail = getStrictOption(options)
   if (fail) {
@@ -648,4 +639,26 @@ function configure (options) {
 
   return stringify
 }
+  
+stringify.configure = configure;
+stringifyConfigure = configure;
+return { stringify, stringifyConfigure }
 })();
+
+//const stringify = configure()
+// @ts-expect-error
+stringify.configure = stringifyConfigure
+// @ts-expect-error
+stringify.stringify = stringify
+
+// @ts-expect-error
+// stringify.default = stringify
+
+// @ts-expect-error used for named export
+//exports.stringify = stringify
+// @ts-expect-error used for named export
+//exports.configure = configure
+
+// module.exports = stringify
+
+
