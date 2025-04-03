@@ -25,11 +25,16 @@ Adapted (to not be a module) from
     https://cdn.jsdelivr.net/npm/safe-stable-stringify@2.5.0/index.min.js
 by JustForBrowsing, (C) 2025
 */
-'use strict'
+// use UMD pattern
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define(factory) :
+    (global.safeStableStringify = factory());
+}(this, (function () { 'use strict';
+
 
 // wrap to prevent all of the becomming part of the main namespace 
 // (only need stringify and configure
-function makeStringify() {  
 
 const { hasOwnProperty } = Object.prototype
 
@@ -641,10 +646,15 @@ configure = configure (options) => {
 }
 stringify.stringify = stringify;
 stringify.configure = configure;
-stringifyConfigure = configure;
-return { stringify, stringifyConfigure }
-}();
-const { stringify, stringifyConfigure } = makeStringify();
+
+// Whatever is returned is what `global.safeStableStringify` will b
+return {
+      stringify: stringify,
+      configure: configure,
+  };
+
+})));
+
 //const stringify = configure()
 // @ts-expect-error
 // stringify.configure = stringifyConfigure
