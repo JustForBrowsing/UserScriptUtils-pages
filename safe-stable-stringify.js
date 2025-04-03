@@ -29,11 +29,11 @@ by JustForBrowsing, (C) 2025
 
 // wrap to prevent all of the becomming part of the main namespace 
 // (only need stringify and configure
-const {stringify, stringifyConfigure} = (() => {  
+function makeStringify() {  
 
 const { hasOwnProperty } = Object.prototype
 
-stringify = configure();
+let stringify = configure();
   
 // eslint-disable-next-line no-control-regex
 const strEscapeSequencesRegExp = /[\u0000-\u001f\u0022\u005c\ud800-\udfff]/
@@ -639,17 +639,17 @@ configure = configure (options) => {
 
   return stringify
 }
-  
+stringify.stringify = stringify;
 stringify.configure = configure;
 stringifyConfigure = configure;
 return { stringify, stringifyConfigure }
-})();
-
+}();
+const { stringify, stringifyConfigure } = makeStringify();
 //const stringify = configure()
 // @ts-expect-error
-stringify.configure = stringifyConfigure
+// stringify.configure = stringifyConfigure
 // @ts-expect-error
-stringify.stringify = stringify
+// stringify.stringify = stringify
 
 // @ts-expect-error
 // stringify.default = stringify
