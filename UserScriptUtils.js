@@ -30,7 +30,7 @@ console.log(`%cUserScriptUtils: window.GM_info.script.name:`, 'color:#4060FF;', 
         Add any addition names needed for your script.
         These should be included just AFTER the ==UserScript== block in your main User Script.
         
-        // global AddEruda, USL
+        // global AddEruda, USU
         // global eruda, erudaCode, erudaMonitor, erudaTiming
 
     3) Grants (FUTURE)
