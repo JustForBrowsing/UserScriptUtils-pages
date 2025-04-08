@@ -9,9 +9,11 @@
 
 //(async () => {
 try {
-//let libId = "UserScriptUtils";
+// let libId = "UserScriptUtils";
 console.log(`%cUserScriptUtils: loading...`, 'color:#4060FF;');
-
+console.log(`%cUserScriptUtils: window.GM_info:`, 'color:#4060FF;', window?.GM_info);
+console.log(`%cUserScriptUtils: window.GM_info.script:`, 'color:#4060FF;', window?.GM_info?.script);
+console.log(`%cUserScriptUtils: window.GM_info.script.name:`, 'color:#4060FF;', window?.GM_info?.script?.name);
 /* DEPENDANCIES:
     1) Imports (@requires)
         Include the following lines in the ==UserScript== block of your main User Script.
