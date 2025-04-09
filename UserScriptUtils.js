@@ -580,7 +580,7 @@ class USU {
             // Convert either Infinity to max/min dates
             return timeOffsetMs >= 0 ? Date.MAX : Date.MIN;
         }
-        const resultDate = new Date();
+        let resultDate = new Date();
         resultDate.setTime(resultDate.getTime() + timeOffsetMs);
         return resultDate;
     }
@@ -747,13 +747,17 @@ class USU {
     }
 
     static {
-        if (Date.MAX === undefined) {
-            Date.MAX = new Date( 8640000000000000); // +275760-09-13T00:00:00.000Z (275,760 AD)
+        try {
+            if (Date.MAX === undefined) {
+                Date.MAX = new Date( 8640000000000000); // +275760-09-13T00:00:00.000Z (275,760 AD)
+            }
+            if (Date.MIN === undefined) {
+                Date.MIN = new Date(-8640000000000000); // -271821-04-20T00:00:00.000Z (271,822 BCE)
+            }
+            this.name = `UserScriptUtils:USU`;
+        } catch (err) {
+            alert(`2: ${err?.name}:${err.message}`);
         }
-        if (Date.MIN === undefined) {
-            Date.MIN = new Date(-8640000000000000); // -271821-04-20T00:00:00.000Z (271,822 BCE)
-        }
-        this.name = `UserScriptUtils:USU`;
     }
 }
 console.log(`%cUserScriptUtils: loaded.`, 'color:#4060FF;');
