@@ -194,12 +194,6 @@ function generateSelector(elem, ancestor = document.body) {
         .reverse()
         .join(' > ');
 }
-    
-} catch (err) {
-    alert(`1: ${err?.name}:${err?.message}(${err?.cause}`);
-    
-}
-try {
 
 class USU {
     static name = null;
@@ -580,7 +574,7 @@ class USU {
             return null;
         } else if (!isFinite(timeOffsetMs)) {
             // Convert either Infinity to max/min dates
-            return timeOffsetMs >= 0 ? Date.MAX : Date.MIN;
+            return timeOffsetMs >= 0 ? this.DateMax : this.DateMin;
         }
         let resultDate = new Date();
         resultDate.setTime(resultDate.getTime() + timeOffsetMs);
@@ -751,31 +745,27 @@ class USU {
     }
 
     static {
-        try {
-            this.DateMax = new Date( 8640000000000000); // +275760-09-13T00:00:00.000Z (275,760 AD)
-            this.DateMin = new Date(-8640000000000000); // -271821-04-20T00:00:00.000Z (271,822 BCE)
-            /*
-            if (Date.prototype.MAX == null) {
-                Date.prototype.MAX = this.DateMax;
-            }
-            if (Date.prototype.MIN == null) {
-                Date.prototype.MIN = this.DateMin;
-            }
-            */
-            this.name = `UserScriptUtils:USU`;
-        } catch (err) {
-            alert(`2: ${err?.name}:${err.message}`);
+        this.DateMax = new Date( 8640000000000000); // +275760-09-13T00:00:00.000Z (275,760 AD)
+        this.DateMin = new Date(-8640000000000000); // -271821-04-20T00:00:00.000Z (271,822 BCE)
+        /*
+        if (Date.prototype.MAX == null) {
+            Date.prototype.MAX = this.DateMax;
         }
+        if (Date.prototype.MIN == null) {
+            Date.prototype.MIN = this.DateMin;
+        }
+        */
+        this.name = `UserScriptUtils:USU`;
     }
-}
-console.log(`%cUserScriptUtils: loaded.`, 'color:#4060FF;');
+  }
+  console.log(`%cUserScriptUtils: loaded.`, 'color:#4060FF;');
 } catch (wrapErr) {
     //window?.alert(wrapErr);
     const errType = wrapErr?.name ?? typeof wrapErr;
     const errLoc = `[${wrapErr?.fileName}:${wrapErr?.lineNumber}:${wrapErr?.columnNumber}]`;
     const errMsg = `UserScriptUtils:Unhandled Error ${errLoc}: ${errType}, ${wrapErr?.message} (cause:'${wrapErr?.cause}'), stack: ${wrapErr?.stack}`;
     window?.console.error(errMsg);
-    window?.alert(errMsg);
+    //window?.alert(errMsg);
 }
 //})();
 
