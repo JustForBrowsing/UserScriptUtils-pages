@@ -741,8 +741,10 @@ class USU {
     }
 
     static {
-        if (Date.MAX == null || Date.MIN == null) {
+        if (Date.MAX === undefined) {
             Date.MAX = new Date( 8640000000000000); // +275760-09-13T00:00:00.000Z (275,760 AD)
+        }
+        if (Date.MIN === undefined) {
             Date.MIN = new Date(-8640000000000000); // -271821-04-20T00:00:00.000Z (271,822 BCE)
         }
         this.name = `UserScriptUtils:USU`;
