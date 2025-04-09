@@ -193,8 +193,9 @@ function generateSelector(elem, ancestor = document.body) {
         .reverse()
         .join(' > ');
 }
+    
 } cause (err) {
-    alert("1:" + String(err));
+    alert(`1: ${err?.name}:${err?.message}(${err?.cause}`);
     
 }
 try {
