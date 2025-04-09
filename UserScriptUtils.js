@@ -227,7 +227,7 @@ class USU {
         let value = null;
         try {
             let rawValue = sessionStorage.getItem(key);
-            if (rawValue != null && USL.validJsonStartRe.test(rawValue)) {
+            if (rawValue != null && USU.validJsonStartRe.test(rawValue)) {
                 value = JSON.parse(rawValue);
             } else {
                 value = rawValue;
