@@ -164,8 +164,9 @@ function AddEruda(_libId = "UserScriptUtils", options = {}) {
 function gsIndexOf(elem) {
     let i = 1;
     for (const child of elem.parentElement.children) {
-        if (elem.isSameNode(child))
+        if (elem.isSameNode(child)) {
             return i;
+        }
         i++;
     }
 }
@@ -193,8 +194,6 @@ function generateSelector(elem, ancestor = document.body) {
         .join(' > ');
 }
 
-
-    
 class USU {
     static validJsonStartRe =
               new RegExp(/^\s*("?(\d+|[^a-zA-Z0-9]true\s|[^a-zA-Z0-9]false\s)"?)|\{|\[|""/, 'i');
@@ -751,7 +750,8 @@ class USU {
 }
 console.log(`%cUserScriptUtils: loaded.`, 'color:#4060FF;');
 } catch (wrapErr) {
-    const errMsg = `UserScriptUtils:Unhandled Error: ${typeof wrapErr}, ${wrapErr?.message}`;
+    const errType = wrapErr?.name ?? typeof wrapErr;
+    const errMsg = `UserScriptUtils:Unhandled Error: ${errType}, ${wrapErr?.message}`;
     window?.console.error(errMsg);
     window?.alert(errMsg);
 }
