@@ -750,14 +750,12 @@ class USU {
 }
 console.log(`%cUserScriptUtils: loaded.`, 'color:#4060FF;');
 } catch (wrapErr) {
-    window?.alert(wrapErr);
-    /*
+    //window?.alert(wrapErr);
     const errType = wrapErr?.name ?? typeof wrapErr;
     const errLoc = `[${wrapErr?.fileName}:${wrapErr?.lineNumber}:${wrapErr?.columnNumber}]`;
-    const errMsg = `UserScriptUtils:Unhandled Error ${errLoc}: ${errType}, ${wrapErr?.message}`;
+    const errMsg = `UserScriptUtils:Unhandled Error ${errLoc}: ${errType}, ${wrapErr?.message}, stack: ${wrapErr?.stack}`;
     window?.console.error(errMsg);
     window?.alert(errMsg);
-    */
 }
 //})();
 
