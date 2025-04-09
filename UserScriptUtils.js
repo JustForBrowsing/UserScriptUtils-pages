@@ -751,11 +751,13 @@ class USU {
 
     static {
         try {
-            if (Date.MAX === undefined) {
-                Date.MAX = new Date( 8640000000000000); // +275760-09-13T00:00:00.000Z (275,760 AD)
+            this.DateMax = new Date( 8640000000000000); // +275760-09-13T00:00:00.000Z (275,760 AD)
+            this.DateMin = new Date(-8640000000000000); // -271821-04-20T00:00:00.000Z (271,822 BCE)
+            if (Date.prototype.MAX == null) {
+                Date.prototype.MAX = this.DateMax;
             }
-            if (Date.MIN === undefined) {
-                Date.MIN = new Date(-8640000000000000); // -271821-04-20T00:00:00.000Z (271,822 BCE)
+            if (Date.prototype.MIN == null) {
+                Date.prototype.MIN = this.DateMin;
             }
             this.name = `UserScriptUtils:USU`;
         } catch (err) {
