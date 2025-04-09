@@ -202,6 +202,7 @@ function generateSelector(elem, ancestor = document.body) {
 try {
 
 class USU {
+    static name = null;
     static validJsonStartRe =
               new RegExp(/^\s*("?(\d+|[^a-zA-Z0-9]true\s|[^a-zA-Z0-9]false\s)"?)|\{|\[|""/, 'i');
     /* This comment fixes the incorrect syntax highlighting (bug) caused by the string above. */
@@ -753,12 +754,14 @@ class USU {
         try {
             this.DateMax = new Date( 8640000000000000); // +275760-09-13T00:00:00.000Z (275,760 AD)
             this.DateMin = new Date(-8640000000000000); // -271821-04-20T00:00:00.000Z (271,822 BCE)
+            /*
             if (Date.prototype.MAX == null) {
                 Date.prototype.MAX = this.DateMax;
             }
             if (Date.prototype.MIN == null) {
                 Date.prototype.MIN = this.DateMin;
             }
+            */
             this.name = `UserScriptUtils:USU`;
         } catch (err) {
             alert(`2: ${err?.name}:${err.message}`);
