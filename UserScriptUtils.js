@@ -1,7 +1,7 @@
 // ==UserLibrary==
 // @name            UserScriptUtils
 // @author          Me
-// @version         0.1.2
+// @version         0.1.4
 // @description     Adds functionality to the Daz3D web site
 // ==/UserLibrary==
 
@@ -751,7 +751,8 @@ class USU {
 console.log(`%cUserScriptUtils: loaded.`, 'color:#4060FF;');
 } catch (wrapErr) {
     const errType = wrapErr?.name ?? typeof wrapErr;
-    const errMsg = `UserScriptUtils:Unhandled Error [${err?.fileName}:${err?.lineNumber}:${err?.columnNumber}]: ${errType}, ${wrapErr?.message}`;
+    const errLoc = `[${wrapErr?.fileName}:${wrapErr?.lineNumber}:${wrapErr?.columnNumber}]`;
+    const errMsg = `UserScriptUtils:Unhandled Error ${errLoc}: ${errType}, ${wrapErr?.message}`;
     window?.console.error(errMsg);
     window?.alert(errMsg);
 }
