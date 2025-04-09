@@ -751,7 +751,7 @@ class USU {
 console.log(`%cUserScriptUtils: loaded.`, 'color:#4060FF;');
 } catch (wrapErr) {
     const errType = wrapErr?.name ?? typeof wrapErr;
-    const errMsg = `UserScriptUtils:Unhandled Error: ${errType}, ${wrapErr?.message}`;
+    const errMsg = `UserScriptUtils:Unhandled Error [${err?.fileName}:${err?.lineNumber}:${err?.columnNumber}]: ${errType}, ${wrapErr?.message}`;
     window?.console.error(errMsg);
     window?.alert(errMsg);
 }
