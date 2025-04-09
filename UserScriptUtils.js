@@ -180,8 +180,9 @@ function gsNthChild(l) {
 function generateSelector(elem, ancestor = document.body) {
     let path = [], parent;
     while (parent = elem.parentElement) {
-        if (ancestor.isSameNode(parent))
+        if (ancestor.isSameNode(parent)) {
             break;
+        }
         if (elem.id && !elem.id.includes('.')) {
             path.push("#" + elem.id);
             break;
@@ -680,6 +681,7 @@ class USU {
         return result;
     }
 
+    /*
     static getCssListItemSelector(elem, listSelector, listElement = null) {
         if (elem == null) {
             return '<null>';
@@ -693,7 +695,8 @@ class USU {
         }
         return CssSelectorGenerator.getCssSelector(elem);
     }
-
+    */
+    
     // From: https://github.com/aglines/search_ddg_customdaterange
     static observeDocument(callback) {
         callback(document.body);
