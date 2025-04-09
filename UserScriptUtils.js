@@ -432,6 +432,22 @@ class USU {
         return this.indentString(str, count, indent).trim();
     }
 
+    /*
+    static tagIdentity = (strings, ...values) =>
+                              String.raw({ raw: strings }, ...values);
+    */
+    
+    static tagIdentity(strings, ...values) {
+        let newStr = '';
+        for (let i = 0; i < strings.length; i++) {
+            if (i > 0) {
+                newStr += values[i-1];
+            }
+            newStr += strings[i];
+        }
+        return newStr;
+    }
+
     static parseInteger(nodeValue) {
         let value = null;
         try {
