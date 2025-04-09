@@ -194,7 +194,7 @@ function generateSelector(elem, ancestor = document.body) {
         .join(' > ');
 }
     
-} cause (err) {
+} catch (err) {
     alert(`1: ${err?.name}:${err?.message}(${err?.cause}`);
     
 }
