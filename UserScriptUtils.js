@@ -6,6 +6,9 @@
 // ==/UserLibrary==
 
 // Dependencies: Daz3D
+
+const UserScriptUtils = {};
+
 try {
     const libId = "UserScriptUtils";
     
@@ -172,7 +175,7 @@ try {
     // (I think it's some kind of 'fix' for iPad Safari):
     document.addEventListener("touchstart", function() {}, false);
     
-    const UserScriptUtils = {
+    UserScriptUtils = {
         initialize: function initialize() {
 
         },
