@@ -11,17 +11,15 @@
 (function (root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		// AMD. Register as an anonymous module.
-        define(['exports', 'b'], factory);
+        define(['exports'], factory);
     } else if (typeof exports === 'object' && typeof exports.nodeName !== 'string') {
         // CommonJS
-        factory(exports, require('b'));
+        module.exports = factory(exports);
     } else {
         // Browser globals
-        factory((root.myModuleName = {}), root.b);
+        factory((root.UserScriptUtils = {}));
     }
-}(typeof self !== 'undefined' ? self : this, function (exports, b) {
-    // Use b in some fashion.
-
+}(typeof self !== 'undefined' ? self : this, function (exports) {
     const libId = "UserScriptUtils";
     
     const stringify = import('https://justforbrowsing.github.io/UserScriptUtils-pages/safe-stable-stringify.js');
