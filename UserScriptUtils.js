@@ -27,6 +27,8 @@
 
     const DateMax = new Date( 8640000000000000); // +275760-09-13T00:00:00.000Z (275,760 AD)
     const DateMin = new Date(-8640000000000000); // -271821-04-20T00:00:00.000Z (271,822 BCE)
+    exports.DateMax = DateMax;
+    exports.DateMin = DateMin;
     const validJsonStartRe = new RegExp(/^\s*("?(\d+|[^a-zA-Z0-9]true\s|[^a-zA-Z0-9]false\s)"?)|\{|\[|""/, 'i');
     //static numberRe = /(?:(?<currency>\$)[\t ]*)?([+-]?(?:[0-9,]*[.])?[0-9]+)(?:[\t ]*(?<percentage>\%))?/i;
     const numberRe = /(?:\$[\t ]*)?([+-]?(?:[0-9,]*[.])?[0-9]+)(?:[\t ]*\%)?/i;
