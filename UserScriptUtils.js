@@ -7,9 +7,21 @@
 
 // Dependencies: Daz3D
 
-const UserScriptUtils = {};
+// myModuleName.js
+(function (root, factory) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+        define(['exports', 'b'], factory);
+    } else if (typeof exports === 'object' && typeof exports.nodeName !== 'string') {
+        // CommonJS
+        factory(exports, require('b'));
+    } else {
+        // Browser globals
+        factory((root.myModuleName = {}), root.b);
+    }
+}(typeof self !== 'undefined' ? self : this, function (exports, b) {
+    // Use b in some fashion.
 
-try {
     const libId = "UserScriptUtils";
     
     const stringify = import('https://justforbrowsing.github.io/UserScriptUtils-pages/safe-stable-stringify.js');
@@ -70,21 +82,16 @@ try {
     
         } else {
             const typeOfErrorIn = typeof errorIn;
-            
-            
-            
-            
-            
             let errorType = typeOfErrorIn === 'object'
-            					? localError?.constructor?.name ?? localError?.name
-								: 
+            			? localError?.constructor?.name ?? localError?.name
+				: typeOfErrorIn;
             const objNameStr = '/' + ('object' === errorInType) ?
                                       localError?.constructor?.name :
                                       '';
             return `error:'${String(localError)} [${errorInType}${objNameStr}]'`;
         }
     }
-
+	
     /** Internal method implementing {@link injectStyleBlock} and {@link injectStyleUrl}
       */
     function _injectStyleCore(cssStringOrElem, styleAttr, styleBlockType, parentElemParam) {
@@ -175,13 +182,13 @@ try {
     // (I think it's some kind of 'fix' for iPad Safari):
     document.addEventListener("touchstart", function() {}, false);
     
-    UserScriptUtils = {
-        initialize: function initialize() {
+    // UserScriptUtils = {
+        exports.initialize = function initialize() {
 
-        },
-    	buildInlineErrorStr: function buildInlineErrorStr(errorIn) {
+        }
+    	exports.buildInlineErrorStr = function buildInlineErrorStr(errorIn) {
             return _buildInlineErrorStr(errorIn);
-        },
+        }
         //// generate-selector
         //   adapted [to not be a module :)] from
         //    https://www.jsdelivr.com/package/npm/@jcsj/generate-selector?tab=files&path=lib
@@ -190,7 +197,7 @@ try {
          * Note that CSS nth-child starts at 1
          * @see https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-child#syntax
          */
-        gsIndexOf: function gsIndexOf(elem) {
+        exports.gsIndexOf = function gsIndexOf(elem) {
             let i = 1;
             for (const child of elem.parentElement.children) {
                 if (elem.isSameNode(child)) {
@@ -198,15 +205,15 @@ try {
                 }
                 i++;
             }
-        },
-        gsNthChild: function gsNthChild(l) {
+        }
+        exports.gsNthChild = function gsNthChild(l) {
             return `${l.tagName}:nth-child(${gsIndexOf(l)})`;
-        },
+        }
         /**
          * Based on: https://stackoverflow.com/questions/8588301/how-to-generate-unique-css-selector-for-dom-element
          * @param {Element} ancestor stops here, defaults to `document.body`
          */
-        generateSelector: function generateSelector(elem, ancestor = document.body) {
+        exports.generateSelector = function generateSelector(elem, ancestor = document.body) {
             let path = [], parent;
             while (parent = elem.parentElement) {
                 if (ancestor.isSameNode(parent)) {
@@ -222,9 +229,9 @@ try {
             return path
                 .reverse()
                 .join(' > ');
-        },
+        }
         
-        sessionStorageGet: function sessionStorageGet(key, displayErrors = null) {
+        exports.sessionStorageGet = function sessionStorageGet(key, displayErrors = null) {
             displayErrors = displayErrors ?? true;
             let value = null;
             try {
@@ -241,9 +248,9 @@ try {
                 value = null;
             }
             return value;
-        },
+        }
     
-        sessionStoragePut: function sessionStoragePut(key, value, displayErrors = null) {
+        exports.sessionStoragePut = function sessionStoragePut(key, value, displayErrors = null) {
             displayErrors = displayErrors ?? false;
             try {
                 sessionStorage.setItem(key, JSON.stringify(value));
@@ -252,29 +259,29 @@ try {
                     console.error(`${libId}:sessionStoragePut: Error, err:${_buildInlineErrorStr(err)}`);
                 }
             }
-        },
+        }
     
         /*
          * @example
          *      injectStyleBlock(cssString, 'new-css-block-id')
          */
-        injectStyleBlock: function injectStyleBlock(cssStringOrElem,
-                                styleBlockId = null,
-                                styleAttributes = null,
-                                parentElem = null) {
+        exports.injectStyleBlock = function injectStyleBlock(cssStringOrElem,
+                                							 styleBlockId = null,
+                               							     styleAttributes = null,
+                               								 parentElem = null) {
             if ('object' === typeof styleBlockId && styleAttributes == null) {
                 styleAttributes = styleBlockId;
                 styleBlockId    = null;
             }
             const styleAttr = Object.assign({}, { id: styleBlockId }, styleAttributes);
             return _injectStyleCore(cssStringOrElem, styleAttr, 'style', parentElem);
-        },
+        }
     
         /*
          * @example
          *      injectStyleUrl('https://someCdn.com/path/some.css', 'new-css-block-id')
          */
-        injectStyleUrl: function injectStyleUrl(cssUrl,
+        exports.injectStyleUrl = function injectStyleUrl(cssUrl,
                               styleBlockId = null,
                               styleAttributes = null,
                               parentElem = null) {
@@ -287,14 +294,13 @@ try {
                                               href: cssUrl, },
                                             styleAttributes);
             return _injectStyleCore(null, styleAttr, 'link', parentElem);
-        },
+        }
     
-
         /*
          * @example
          *      injectScriptBlock(javascriptCodeString, 'new-script-block-id')
          */
-        injectScriptBlock: function injectScriptBlock(jsStringOrElem,
+        exports.injectScriptBlock = function injectScriptBlock(jsStringOrElem,
                                  scriptBlockId = null,
                                  scriptAttributes = null,
                                  parentElem = null) {
@@ -307,13 +313,13 @@ try {
                                                type: 'text/javascript', },
                                              scriptAttributes);
             return _injectScriptCore(jsStringOrElem, scriptAttr, parentElem);
-        },
+        }
     
         /*
          * @example
          *      injectScriptUrl('https://someCdn.com/path/some.js', 'new-script-block-id')
          */
-        injectScriptUrl: function injectScriptUrl(scriptUrl,
+        exports.injectScriptUrl = function injectScriptUrl(scriptUrl,
                                scriptBlockId = null,
                                scriptAttributes = null,
                                parentElem = null) {
@@ -326,16 +332,15 @@ try {
                                                 src: scriptUrl     },
                                              scriptAttributes);
             return _injectScriptCore(null, scriptAttr, parentElem);
-        },
+        }
     
-
-        localeStartsWith: function localeStartsWith(testString, startingString, localeOptions = null) {
+        exports.localeStartsWith = function localeStartsWith(testString, startingString, localeOptions = null) {
             const safeStartingString = String(startingString);
             return String(testString).slice(0, safeStartingString.length)
                                      .localeCompare(safeStartingString, localeOptions ?? {});
-        },
+        }
     
-        caseInsensitiveCompare: function caseInsensitiveCompare(stringA, stringB) {
+        exports.caseInsensitiveCompare = function caseInsensitiveCompare(stringA, stringB) {
             if (stringA === stringB || (stringA == null && stringB == null)) {
                 return 0;
             } else if (stringA == null) {
@@ -344,22 +349,22 @@ try {
                 return -1;
             }
             return stringA.localeCompare(stringB, { sensitivity: 'accent' });
-        },
+        }
     
-        indentString: function indentString(str, count, indent = ' ') {
+        exports.indentString = function indentString(str, count, indent = ' ') {
             return str.replace(/^/gm, indent.repeat(count));
-        },
+        }
     
-        indentOverflow: function indentOverflow(str, count, indent = ' ') {
+        exports.indentOverflow = function indentOverflow(str, count, indent = ' ') {
             return this.indentString(str, count, indent).trim();
-        },
+        }
     
         /*
         static tagIdentity = (strings, ...values) =>
                                   String.raw({ raw: strings }, ...values);
         */
         
-        tagIdentity: function tagIdentity(strings, ...values) {
+        exports.tagIdentity = function tagIdentity(strings, ...values) {
             let newStr = '';
             for (let i = 0; i < strings.length; i++) {
                 if (i > 0) {
@@ -368,9 +373,9 @@ try {
                 newStr += strings[i];
             }
             return newStr;
-        },
+        }
     
-        parseInteger: function parseInteger(nodeValue) {
+        exports.parseInteger = function parseInteger(nodeValue) {
             let value = null;
             try {
                 if (nodeValue == null) {
@@ -393,9 +398,9 @@ try {
                 }
             }
             return value;
-        },
+        }
     
-        parseFloat: function parseFloat(nodeValue) {
+        exports.parseFloat = function parseFloat(nodeValue) {
             let value = null;
             try {
                 if (nodeValue == null) {
@@ -418,7 +423,7 @@ try {
                 }
             }
             return value;
-        },
+        }
     
         /** Get text from only the supplied parentNode and not from any of its child nodes (i.e., concatenate the contents of all parentNode child nodes of type TEXT_NODE).
          *  @param  parentNode {Node|null}   The element you want to extract the text from.
@@ -427,13 +432,13 @@ try {
          *  @example
          *      let nodeStr = USL.getFirstText(document.getElementById('someTextNodeId'));
          */
-        getFirstText: function getFirstText(parentNode) {
+        exports.getFirstText = function getFirstText(parentNode) {
             if (parentNode == null) {
                 return null;
             }
             return [].reduce.call(parentNode.childNodes, function(a, b) { return a + (b.nodeType === Node.TEXT_NODE ? b.textContent : ''); }, '');
             // Node.TEXT_NODE === 3
-        },
+        }
     
         /** Extracts the first decimal number from the string (does not support exponential notation).
          *  @return {RegExpMatch|null}    The extracted text (or null is the input was null).
@@ -464,7 +469,7 @@ try {
          *      }
          */
 
-        parseRawNumber: function parseRawNumber(rawStr, freeValue = 0.0) {
+        exports.parseRawNumber = function parseRawNumber(rawStr, freeValue = 0.0) {
             if (rawStr == null) {
                 return null;
             }
@@ -487,9 +492,9 @@ try {
             } else {
                 return parseFloat(this.numberRe.exec(rawStr)?.[1]);
             }
-        },
+        }
     
-        addMillisecondsToNow: function addMillisecondsToNow(timeOffsetMs) {
+        exports.addMillisecondsToNow = function addMillisecondsToNow(timeOffsetMs) {
             if (timeOffsetMs == null) {
                 return null;
             } else if (!isFinite(timeOffsetMs)) {
@@ -499,18 +504,18 @@ try {
             let resultDate = new Date();
             resultDate.setTime(resultDate.getTime() + timeOffsetMs);
             return resultDate;
-        },
+        }
     
-        rectangleToString: function rectangleToString(rect) {
+        exports.rectangleToString = function rectangleToString(rect) {
             if (rect == null) {
                 return null;
             } else {
                 return `rect[${rect.top.toFixed(2)},${rect.left.toFixed(2)};${rect.height.toFixed(2)}x${rect.width.toFixed(2)}]`;
             }
-        },
+        }
     
         // insertAdjacentHTML that returns inserted element
-        insertAdjacentHTML: function insertAdjacentHTML(relativeElement, position, html) {
+        exports.insertAdjacentHTML = function insertAdjacentHTML(relativeElement, position, html) {
             try {
                 relativeElement.insertAdjacentHTML(position, html);
                 let insertedElement;
@@ -540,9 +545,9 @@ try {
                     throw err;
                 }
             }
-        },
+        }
     
-        insertAdjacentWithId: function insertAdjacentWithId(blockId, relativeElement, position, html) {
+        exports.insertAdjacentWithId = function insertAdjacentWithId(blockId, relativeElement, position, html) {
             let blockElement = document.getElementById(blockId);
             if (blockElement == null) {
                 relativeElement.insertAdjacentHTML(position, html);
@@ -552,9 +557,9 @@ try {
                 }
             }
             return blockElement;
-        },
+        }
     
-        assemblePrototypeChainGraph: function assemblePrototypeChainGraph(value) {
+        exports.assemblePrototypeChainGraph = function assemblePrototypeChainGraph(value) {
             let result = '';
             let depth = 0;
     
@@ -568,7 +573,7 @@ try {
                 ].join('');
             }
             return result;
-        },
+        }
     
         /**
          * @param {String} HTML representing a single element.
@@ -576,7 +581,7 @@ try {
          * @return {Element | HTMLCollection | null}
          * @note From https://stackoverflow.com/a/35385518
          */
-        fromHTML: function fromHTML(html, trim = true) {
+        exports.fromHTML = function fromHTML(html, trim = true) {
             // Process the HTML string.
             html = trim ? html.trim() : html;
             if (!html) {
@@ -594,7 +599,7 @@ try {
                 return result[0];
             }
             return result;
-        },
+        }
     
         /*
         : function getCssListItemSelector(elem, listSelector, listElement = null) {
@@ -613,7 +618,7 @@ try {
         */
         
         // From: https://github.com/aglines/search_ddg_customdaterange
-        observeDocument: function observeDocument(callback) {
+        exports.observeDocument = function observeDocument(callback) {
             callback(document.body);
     
             const observe = (observer) => observer.observe(document.body, {
@@ -631,10 +636,10 @@ try {
             });
     
             observe(observer);
-        },
+        }
     
         // From: https://github.com/aglines/search_ddg_customdaterange
-        elementReady: function elementReady(selector, timeoutInMs = -1) {
+        exports.elementReady = function elementReady(selector, timeoutInMs = -1) {
             return new Promise((resolve, reject) => {
                 const getter = 'function' === typeof selector ?
                     () => selector() :
@@ -662,20 +667,20 @@ try {
                     subtree: true
                 });
             });
-        },
-    
-    };
-} finally {
-	console.log(`%cUserScriptUtils: loaded.`, 'color:#4060FF;');
-} catch (wrapErr) {
-    
-    //window?.alert(wrapErr);
-    const errType = wrapErr?.name ?? typeof wrapErr;
-    const errLoc = `[${wrapErr?.fileName}:${wrapErr?.lineNumber}:${wrapErr?.columnNumber}]`;
-    const errMsg = `UserScriptUtils:Unhandled Error ${errLoc}: ${errType}, ${wrapErr?.message} (cause:'${wrapErr?.cause}'), stack: ${wrapErr?.stack}`;
-    window?.console.error(errMsg);
-    //window?.alert(errMsg);
-}
+        }
+
+	} finally {
+		console.log(`%cUserScriptUtils: loaded.`, 'color:#4060FF;');
+	} catch (wrapErr) {
+	    
+	    //window?.alert(wrapErr);
+	    const errType = wrapErr?.name ?? typeof wrapErr;
+	    const errLoc = `[${wrapErr?.fileName}:${wrapErr?.lineNumber}:${wrapErr?.columnNumber}]`;
+	    const errMsg = `UserScriptUtils:Unhandled Error ${errLoc}: ${errType}, ${wrapErr?.message} (cause:'${wrapErr?.cause}'), stack: ${wrapErr?.stack}`;
+	    window?.console.error(errMsg);
+	    //window?.alert(errMsg);
+	}
+}));
 //})();
 
 
