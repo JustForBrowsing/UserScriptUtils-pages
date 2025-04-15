@@ -9,7 +9,7 @@
 
 # UserScriptUtils GitHub Page
 
-Just used to deploy the UserScriptUtils.js file during its development
+~~Just~~ used to deploy the UserScriptUtils.js file **(among other things)** during its development
 
 </header>
 
