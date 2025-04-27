@@ -1,18 +1,17 @@
 
 ## Safari Javascript Console Commands:
-
-
-
-
-
-
-
+List of Safari's supported ```console``` commands.
+```
 console.assert(expression, object)
 console.clear()
 console.count([title])
 console.debug(object)
-console.dir(object)
-console.dirxml(node)
+console.dir(object)        // Display object as an expandible tree
+console.dirxml(node)       // Display object as an expandible tree
+console.dirxml(window)
+console.dir(window.eruda);
+window.console.log("test");
+let con = window.eruda.get("console");
 console.error(object)
 console.group([title])
 console.groupEnd()
@@ -26,11 +25,44 @@ console.timeEnd(name)
 console.trace()
 console.warn(object)
 debugger
+```
 
 
+----------------------------------------------------------------------
+## CSS Properties
+```CSS
+section {
+  --main-bg-color: brown;
+}
+:root {
+  --main-bg-color: brown;
+}
+@property --logo-color {
+  syntax: "<color>";
+  inherits: false;  // true for —-<var>
+  initial-value: #c0ffee;
+}
+details {
+  background-color: var(--main-bg-color);
+  color: var(--my-var, red);
+}
+multi-alt {
+  color: var(--my-var, 
+             var(--my-background, pink));
+}
+```
+```javascript
+// get variable from inline style
+element.style.getPropertyValue("--my-var");
 
+// get variable from wherever
+getComputedStyle(element).getPropertyValue("--my-var");
 
+// set variable on inline style
+element.style.setProperty("--my-var", jsVar + 4);
+```
 
+----------------------------------------------------------------------
 
 ## Useful Libraries
 ### pretty-checkbox
@@ -333,38 +365,7 @@ p-smooth, p-jelly, p-tada, p-rotate, p-pulse
 </div>
 ```
       
-### CSS Properties
-```CSS
-section {
-  --main-bg-color: brown;
-}
-:root {
-  --main-bg-color: brown;
-}
-@property --logo-color {
-  syntax: "<color>";
-  inherits: false;  // true for —-<var>
-  initial-value: #c0ffee;
-}
-details {
-  background-color: var(--main-bg-color);
-  color: var(--my-var, red);
-}
-multi-alt {
-  color: var(--my-var, 
-             var(--my-background, pink));
-}
-```
-```javascript
-// get variable from inline style
-element.style.getPropertyValue("--my-var");
-
-// get variable from wherever
-getComputedStyle(element).getPropertyValue("--my-var");
-
-// set variable on inline style
-element.style.setProperty("--my-var", jsVar + 4);
-```
+`
 
 
 
