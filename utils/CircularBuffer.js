@@ -1,3 +1,10 @@
+// use UMD pattern to prevent all of the support stuff becomming part of the main namespace 
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define(factory) :
+    (global.CircularBuffer = factory());
+}(this, (function () { 'use strict'
+
 // Circular buffer storage. Externally-apparent 'length' increases indefinitely
 // while any items with indexes below length-n will be forgotten (undefined
 // will be returned if you try to get them, trying to set is an exception).
@@ -78,3 +85,9 @@ class CircularBuffer {
         }
     }
 }
+
+    // Just return a value to define the module export.
+    // This example returns an object, but the module
+    // can return a function as the exported value.
+    return CircularBuffer;
+}));
