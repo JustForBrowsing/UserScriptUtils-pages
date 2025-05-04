@@ -8,7 +8,8 @@
   *   - Weighted Moving Average (WMA) 
   *   - Simple Moving Median (SMM)
   */
-
+const circularBuffer = import('https://justforbrowsing.github.io/UserScriptUtils-pages/utils/CircularBuffer.js');
+const CircularBuffer = circularBuffer.CircularBuffer;
 
 /**  Base class for all of the filters
   */
