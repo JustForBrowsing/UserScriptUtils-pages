@@ -7,29 +7,16 @@
   Add your open source license, GitHub uses MIT license.
 -->
 
-# GitHub Pages
+<h2>UserScriptUtils GitHub page</h2>
 
-_Create a site or blog from your GitHub repositories with GitHub Pages._
+<emphasis>~~Just~~ Used to deploy the UserScriptUtils.js file **(among other things)** during its development.</emphasis>
 
 </header>
 
 <!--
-  <<< Author notes: Step 5 >>>
-  Start this step by acknowledging the previous step.
-  Define terms and link to docs.github.com.
+  <<< Author notes: Finish >>>
+  Review what we learned, ask for feedback, provide next steps.
 -->
-
-## Step 5: Merge your pull request
-
-_Nice work, friend :heart:! People will be reading your blog in no time!_
-
-You can now [merge](https://docs.github.com/en/get-started/quickstart/github-glossary#merge) your pull request!
-
-### :keyboard: Activity: Merge your changes
-
-1. Merge your changes from `my-pages` into `main`. If you created the pull request in step 2, just open that PR and click on **Merge pull request**. If you did not create the pull request earlier, you can do it now by following the instructions in [step 2](/.github/steps/2-configure-your-site.md).
-1. (optional) Delete the branch `my-pages`.
-1. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
 
 <footer>
 
@@ -39,9 +26,5 @@ You can now [merge](https://docs.github.com/en/get-started/quickstart/github-glo
 -->
 
 ---
-
-Get help: [Post in our discussion board](https://github.com/orgs/skills/discussions/categories/github-pages) &bull; [Review the GitHub status page](https://www.githubstatus.com/)
-
-&copy; 2023 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
 
 </footer>

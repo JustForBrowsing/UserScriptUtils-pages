@@ -1,4 +1,4 @@
-theme: minima
-title: UserScriptUtils Development
+theme: cayman   # minima | cayman | midnight | slate
+title: UserScript Utilities Development
 author: JustForBrowsing
-description: GitHub Page for development and deployment of the UserScriptUtils.js file.
+description: GitHub page for development and deployment of UserScript support files.
