@@ -1,6 +1,7 @@
 // Hand generated single file (merged) browser <script> compatible version of pretty-format.
 // Original: https://github.com/jestjs/jest/tree/main/packages/pretty-format
- 
+/*jshint -W099 */
+   
 const _ansiStyles = (() => {
     const ansiStylesExports = {};
     
@@ -223,10 +224,10 @@ const _ansiStyles = (() => {
     }
     ansiStylesExports.default = assembleStyles();
     ansiStylesExports.names = {
-        modifiers,
-        foregroundColor,
-        backgroundColor,
-        color,
+        modifiers: modifierNames,
+        foregroundColor: foregroundColorNames,
+        backgroundColor: backgroundColorNames,
+        color: colorNames,
     };
     
     return ansiStylesExports;
@@ -517,9 +518,8 @@ const _markup = (() => {
     // in a self-closing tagColor requires a second test of printedProps.
     markupExports.printComment = printComment;
     const printedChildrenStr = printedChildren
-          ? `>${tagColor.close}${printedChildren}${config.spacingOuter}${indentation}${tagColor.open}</
-          ${type}`
-          : `${printedProps && !config.min ? '' : ' '}/`
+          ? `>${tagColor.close}${printedChildren}${config.spacingOuter}${indentation}${tagColor.open}</${type}`
+          : `${printedProps && !config.min ? '' : ' '}/`;
     const printElement = (
       type,
       printedProps,
