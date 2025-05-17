@@ -1,4 +1,4 @@
-theme: cayman   # minima | cayman | midnight | slate
+theme: midnight   # minima | cayman | midnight | slate
 title: UserScript Utilities Development
 author: JustForBrowsing
 description: GitHub page for development and deployment of UserScript support files.
