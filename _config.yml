@@ -4,3 +4,4 @@ plugins:
 title: UserScript Utilities Development
 author: JustForBrowsing
 description: GitHub page for development and deployment of UserScript support files.
+show_downloads: true
