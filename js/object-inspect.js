@@ -1,4 +1,3 @@
-
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
@@ -13,13 +12,10 @@
         root.objectInspect = factory();
   }
 }(typeof self !== 'undefined' ? self : this, function () {
-
-    
     let exports;
-    
-    
-    var hasMap = typeof Map === 'function' && Map.prototype;
-    var mapSizeDescriptor = Object.getOwnPropertyDescriptor && hasMap ? Object.getOwnPropertyDescriptor(Map.prototype, 'size') : null;
+
+    var hasMap             = typeof Map === 'function' && Map.prototype;
+    var mapSizeDescriptor  = Object.getOwnPropertyDescriptor && hasMap ? Object.getOwnPropertyDescriptor(Map.prototype, 'size') : null;
     var mapSize = hasMap && mapSizeDescriptor && typeof mapSizeDescriptor.get === 'function' ? mapSizeDescriptor.get : null;
     var mapForEach = hasMap && Map.prototype.forEach;
     var hasSet = typeof Set === 'function' && Set.prototype;
