@@ -242,12 +242,12 @@ const _ansiStyles = (() => {
 const _collections = (() => {
     'use strict';
     
-    const collectionExports = {};
-    collectionExports.printIteratorEntries  = printIteratorEntries;
-    collectionExports.printIteratorValues   = printIteratorValues;
-    collectionExports.printListItems        = printListItems;
-    collectionExports.printObjectProperties = printObjectProperties;
-    
+    const collectionExports = {
+         printIteratorEntries:  printIteratorEntries,
+         printIteratorValues:   printIteratorValues,
+         printListItems:        printListItems,
+         printObjectProperties: printObjectProperties,
+   };
     /**
      * Copyright (c) Meta Platforms, Inc. and affiliates.
      *
@@ -427,13 +427,14 @@ const _collections = (() => {
 const _markup = (() => {
     'use strict';
     
-    const markupExports = {};
-    markupExports.printText          = void 0;
-    markupExports.printProps         = void 0;
-    markupExports.printElementAsLeaf = void 0;
-    markupExports.printElement       = void 0;
-    markupExports.printComment       = void 0;
-    markupExports.printChildren      = void 0;
+    const markupExports = {
+        printText:          void 0,
+        printProps:         void 0,
+        printElementAsLeaf: void 0,
+        printElement:       void 0,
+        printComment:       void 0,
+        printChildren:      void 0,
+    };
         
     /**
      * Copyright (c) Meta Platforms, Inc. and affiliates.
@@ -551,11 +552,11 @@ const _markup = (() => {
 const _AsymmetricMatcher = (() => {
     'use strict';
     
-    const asymmetricMatcherExports = {};
-    asymmetricMatcherExports.test      = void 0;
-    asymmetricMatcherExports.serialize = void 0;
-    asymmetricMatcherExports.default   = void 0;
-    
+    const asymmetricMatcherExports = {
+        test:      void 0,
+        serialize: void 0,
+        default:   void 0,
+    };
     /**
      * Copyright (c) Meta Platforms, Inc. and affiliates.
      *
@@ -651,10 +652,11 @@ const _AsymmetricMatcher = (() => {
 var _DOMCollection = (() => {
     'use strict';
     
-    const domCollectionExports = {};
-    domCollectionExports.test      = void 0;
-    domCollectionExports.serialize = void 0;
-    domCollectionExports.default   = void 0;
+    const domCollectionExports = {
+        test      : void 0,
+        serialize : void 0,
+        default   : void 0,
+    };
 
     /**
      * Copyright (c) Meta Platforms, Inc. and affiliates.
@@ -725,10 +727,11 @@ var _DOMCollection = (() => {
 var _DOMElement = (() => {
     'use strict';
     
-    const domElementExports = {};
-    domElementExports.test      = void 0;
-    domElementExports.serialize = void 0;
-    domElementExports.default   = void 0;
+    const domElementExports = {
+        test      : void 0,
+        serialize : void 0,
+        default   : void 0,
+    };
     /**
      * Copyright (c) Meta Platforms, Inc. and affiliates.
      *
@@ -833,10 +836,11 @@ var _DOMElement = (() => {
 
 
 var _Immutable = (() => {
-    const immutableExports = {};
-    immutableExports.test      = void 0;
-    immutableExports.serialize = void 0;
-    immutableExports.default   = void 0;
+    const immutableExports = {
+         test      : void 0,
+         serialize : void 0,
+         default   : void 0,
+    };
     
     /**
      * Copyright (c) Meta Platforms, Inc. and affiliates.
@@ -1061,12 +1065,12 @@ var _Immutable = (() => {
 
 
 (() => {
-    const prettyFormatExports = {};
-    prettyFormatExports.default         = void 0;
-    prettyFormatExports.DEFAULT_OPTIONS = void 0;
-    prettyFormatExports.format          = format;
-    prettyFormatExports.plugins         = void 0;
-    
+    const prettyFormatExports = {
+        default         : void 0,
+        DEFAULT_OPTIONS : void 0,
+        format          : format,
+        plugins         : void 0,
+    };
     /**
      * Copyright (c) Meta Platforms, Inc. and affiliates.
      *
