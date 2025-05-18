@@ -1,8 +1,9 @@
 // Hand generated single file (merged) browser <script> compatible version of pretty-format.
 // Original: https://github.com/jestjs/jest/tree/main/packages/pretty-format
-/*jshint -W099 */
-   
-const _ansiStyles = (() => {
+
+
+
+const _ansiStyles = ((global) => {
     const ansiStylesExports = {};
     
     const ANSI_BACKGROUND_OFFSET     = 10;
@@ -152,11 +153,11 @@ const _ansiStyles = (() => {
                     const integer = Number.parseInt(colorString, 16);
     
                     return [
-                        /* eslint-disable no-bitwise */
+                        // eslint-disable no-bitwise 
                         (integer >> 16) & 0xFF,
                         (integer >> 8) & 0xFF,
                         integer & 0xFF,
-                        /* eslint-enable no-bitwise */
+                        // eslint-enable no-bitwise 
                     ];
                 },
                 enumerable: false,
@@ -224,14 +225,16 @@ const _ansiStyles = (() => {
     }
     ansiStylesExports.default = assembleStyles();
     ansiStylesExports.names = {
-        modifiers: modifierNames,
+              modifiers: modifierNames,
         foregroundColor: foregroundColorNames,
         backgroundColor: backgroundColorNames,
-        color: colorNames,
+                  color: colorNames,
     };
-    
+
+    global.ansiStyles = ansiStylesExports;
+   
     return ansiStylesExports;
-})();
+})(global ?? window);
 
 
 
@@ -239,7 +242,7 @@ const _ansiStyles = (() => {
 
 
 
-const _collections = (() => {
+const _collections = ((global) => {
     'use strict';
     
     const collectionExports = {
@@ -248,13 +251,12 @@ const _collections = (() => {
          printListItems:        printListItems,
          printObjectProperties: printObjectProperties,
    };
-    /**
-     * Copyright (c) Meta Platforms, Inc. and affiliates.
-     *
-     * This source code is licensed under the MIT license found in the
-     * LICENSE file in the root directory of this source tree.
-     *
-     */
+    //
+    // Copyright (c) Meta Platforms, Inc. and affiliates.
+    // 
+    // This source code is licensed under the MIT license found in the
+    // LICENSE file in the root directory of this source tree.
+    //
     const getKeysOfEnumerableProperties = (object, compareKeys) => {
       const rawKeys = Object.keys(object);
       const keys = compareKeys !== null ? rawKeys.sort(compareKeys) : rawKeys;
@@ -268,11 +270,11 @@ const _collections = (() => {
       return keys;
     };
     
-    /**
-     * Return entries (for example, of a map)
-     * with spacing, indentation, and comma
-     * without surrounding punctuation (for example, braces)
-     */
+    //
+    // Return entries (for example, of a map)
+    // with spacing, indentation, and comma
+    // without surrounding punctuation (for example, braces)
+    //
     function printIteratorEntries(
       iterator,
       config,
@@ -324,11 +326,11 @@ const _collections = (() => {
       return result;
     }
     
-    /**
-     * Return values (for example, of a set)
-     * with spacing, indentation, and comma
-     * without surrounding punctuation (braces or brackets)
-     */
+    //
+    // Return values (for example, of a set)
+    // with spacing, indentation, and comma
+    // without surrounding punctuation (braces or brackets)
+    //
     function printIteratorValues(
       iterator,
       config,
@@ -362,11 +364,11 @@ const _collections = (() => {
       return result;
     }
     
-    /**
-     * Return items (for example, of an array)
-     * with spacing, indentation, and comma
-     * without surrounding punctuation (for example, brackets)
-     **/
+    //
+    // Return items (for example, of an array)
+    // with spacing, indentation, and commas,
+    // without surrounding punctuation (for example, brackets)
+    //
     function printListItems(list, config, indentation, depth, refs, printer) {
       let result = '';
       if (list.length) {
@@ -392,11 +394,11 @@ const _collections = (() => {
       return result;
     }
     
-    /**
-     * Return properties of an object
-     * with spacing, indentation, and comma
-     * without surrounding punctuation (for example, braces)
-     */
+    //
+    // Return properties of an object
+    // with spacing, indentation, and comma
+    // without surrounding punctuation (for example, braces)
+    //
     function printObjectProperties(val, config, indentation, depth, refs, printer) {
       let result = '';
       const keys = getKeysOfEnumerableProperties(val, config.compareKeys);
@@ -420,11 +422,17 @@ const _collections = (() => {
     }
     
     return collectionExports;
-})();
+})(global ?? window);
 
 
 
-const _markup = (() => {
+
+
+
+
+
+
+const _markup = ((global) => {
     'use strict';
     
     const markupExports = {
@@ -436,25 +444,22 @@ const _markup = (() => {
         printChildren:      void 0,
     };
         
-    /**
-     * Copyright (c) Meta Platforms, Inc. and affiliates.
-     *
-     * This source code is licensed under the MIT license found in the
-     * LICENSE file in the root directory of this source tree.
-     */
-    
+    //
+    // Copyright (c) Meta Platforms, Inc. and affiliates.
+    //
+    // This source code is licensed under the MIT license found in the
+    // LICENSE file in the root directory of this source tree.
+    //
     function _escapeHTML(str) {
       return str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
     
-    
-    /**
-     * Copyright (c) Meta Platforms, Inc. and affiliates.
-     *
-     * This source code is licensed under the MIT license found in the
-     * LICENSE file in the root directory of this source tree.
-     */
-    
+    //
+    // Copyright (c) Meta Platforms, Inc. and affiliates.
+    //
+    // This source code is licensed under the MIT license found in the
+    // LICENSE file in the root directory of this source tree.
+    //
     // Return empty string if keys is empty.
     const printProps = (keys, props, config, indentation, depth, refs, printer) => {
       const indentationNext = indentation + config.indent;
@@ -546,10 +551,13 @@ const _markup = (() => {
     markupExports.printElementAsLeaf = printElementAsLeaf;
 
     return markupExports;
-})();
+})(global ?? window);
 
 
-const _AsymmetricMatcher = (() => {
+
+
+      
+const _AsymmetricMatcher = ((global) => {
     'use strict';
     
     const asymmetricMatcherExports = {
@@ -557,12 +565,12 @@ const _AsymmetricMatcher = (() => {
         serialize: void 0,
         default:   void 0,
     };
-    /**
-     * Copyright (c) Meta Platforms, Inc. and affiliates.
-     *
-     * This source code is licensed under the MIT license found in the
-     * LICENSE file in the root directory of this source tree.
-     */
+    //
+    // Copyright (c) Meta Platforms, Inc. and affiliates.
+    //
+    // This source code is licensed under the MIT license found in the
+    // LICENSE file in the root directory of this source tree.
+    //
     const asymmetricMatcher =
       typeof Symbol === 'function' && Symbol.for
         ? Symbol.for('jest.asymmetricMatcher')
@@ -641,7 +649,7 @@ const _AsymmetricMatcher = (() => {
     
     return asymmetricMatcherExports;
 
-})();
+})(global ?? window);
 
 
 
@@ -649,7 +657,8 @@ const _AsymmetricMatcher = (() => {
 
 
 
-var _DOMCollection = (() => {
+
+const _DOMCollection = ((global) => {
     'use strict';
     
     const domCollectionExports = {
@@ -658,12 +667,12 @@ var _DOMCollection = (() => {
         default   : void 0,
     };
 
-    /**
-     * Copyright (c) Meta Platforms, Inc. and affiliates.
-     *
-     * This source code is licensed under the MIT license found in the
-     * LICENSE file in the root directory of this source tree.
-     */
+    //
+    // Copyright (c) Meta Platforms, Inc. and affiliates.
+    // 
+    // This source code is licensed under the MIT license found in the
+    // LICENSE file in the root directory of this source tree.
+    //
     const SPACE = ' ';
     const OBJECT_NAMES = ['DOMStringMap', 'NamedNodeMap'];
     const ARRAY_REGEXP = /^(HTML\w*Collection|NodeList)$/;
@@ -717,14 +726,13 @@ var _DOMCollection = (() => {
     
     return domCollectionExports;
 
-})();
+})(global ?? window);
 
 
 
 
 
-
-var _DOMElement = (() => {
+const _DOMElement = ((global) => {
     'use strict';
     
     const domElementExports = {
@@ -732,13 +740,12 @@ var _DOMElement = (() => {
         serialize : void 0,
         default   : void 0,
     };
-    /**
-     * Copyright (c) Meta Platforms, Inc. and affiliates.
-     *
-     * This source code is licensed under the MIT license found in the
-     * LICENSE file in the root directory of this source tree.
-     */
-    
+    //
+    // Copyright (c) Meta Platforms, Inc. and affiliates.
+    //
+    // This source code is licensed under the MIT license found in the
+    // LICENSE file in the root directory of this source tree.
+    //
     const ELEMENT_NODE = 1;
     const TEXT_NODE = 3;
     const COMMENT_NODE = 8;
@@ -829,26 +836,25 @@ var _DOMElement = (() => {
     
     return domElementExports;
 
-})();
+})(global ?? window);
 
 
 
 
 
-var _Immutable = (() => {
+const _Immutable = ((global) => {
     const immutableExports = {
          test      : void 0,
          serialize : void 0,
          default   : void 0,
     };
     
-    /**
-     * Copyright (c) Meta Platforms, Inc. and affiliates.
-     *
-     * This source code is licensed under the MIT license found in the
-     * LICENSE file in the root directory of this source tree.
-     */
-    
+    //
+    // Copyright (c) Meta Platforms, Inc. and affiliates.
+    //
+    // This source code is licensed under the MIT license found in the
+    // LICENSE file in the root directory of this source tree.
+    //
     // SENTINEL constants are from https://github.com/facebook/immutable-js
     const IS_ITERABLE_SENTINEL = '@@__IMMUTABLE_ITERABLE__@@';
     const IS_LIST_SENTINEL = '@@__IMMUTABLE_LIST__@@';
@@ -1055,45 +1061,40 @@ var _Immutable = (() => {
     
     return immutableExports;
 
-})();
+})(global ?? window);
 
 
 
 
-
-
-
-
-(() => {
+return ((global) => {
     const prettyFormatExports = {
         default         : void 0,
         DEFAULT_OPTIONS : void 0,
         format          : format,
         plugins         : void 0,
     };
-    /**
-     * Copyright (c) Meta Platforms, Inc. and affiliates.
-     *
-     * This source code is licensed under the MIT license found in the
-     * LICENSE file in the root directory of this source tree.
-     */
+    //
+    // Copyright (c) Meta Platforms, Inc. and affiliates.
+    //
+    // This source code is licensed under the MIT license found in the
+    // LICENSE file in the root directory of this source tree.
+    //
     
-    /* eslint-disable local/ban-types-eventually */
+    // eslint-disable local/ban-types-eventually 
     
     const toString = Object.prototype.toString;
     const toISOString = Date.prototype.toISOString;
     const errorToString = Error.prototype.toString;
     const regExpToString = RegExp.prototype.toString;
     
-    /**
-     * Explicitly comparing typeof constructor to function avoids undefined as name
-     * when mock identity-obj-proxy returns the key as the value for any key.
-     */
+    
+    // Explicitly comparing typeof constructor to function avoids undefined as name
+    // when mock identity-obj-proxy returns the key as the value for any key.
     const getConstructorName = val =>
       (typeof val.constructor === 'function' && val.constructor.name) || 'Object';
     
-    /* global window */
-    /** Is val is equal to global window object? Works even if it does not exist :) */
+    //  global window 
+    //  Is val is equal to global window object? Works even if it does not exist :) 
     const isWindow = val => typeof window !== 'undefined' && val === window;
     const SYMBOL_REGEXP = /^Symbol\((.*)\)(.*)$/;
     const NEWLINE_REGEXP = /\n/gi;
@@ -1138,11 +1139,9 @@ var _Immutable = (() => {
     function printError(val) {
       return `[${errorToString.call(val)}]`;
     }
-    
-    /**
-     * The first port of call for printing an object, handles most of the
-     * data-types in JS.
-     */
+   
+    // The first port of call for printing an object, handles most of the
+    // data-types in JS.
     function printBasicValue(val, printFunctionName, escapeRegex, escapeString) {
       if (val === true || val === false) {
         return `${val}`;
@@ -1207,10 +1206,9 @@ var _Immutable = (() => {
       return null;
     }
     
-    /**
-     * Handles more complex objects ( such as objects with circular references.
-     * maps and sets etc )
-     */
+
+    // Handles more complex objects ( such as objects with circular references.
+    // maps and sets etc )
     function printComplexValue(
       val,
       config,
@@ -1489,11 +1487,11 @@ var _Immutable = (() => {
       return new Array(indent + 1).join(' ');
     }
     
-    /**
-     * Returns a presentation string of your `val` object
-     * @param val any potential JavaScript object
-     * @param options Custom settings
-     */
+    //
+    // Returns a presentation string of your `val` object
+    // @param val any potential JavaScript object
+    // @param options Custom settings
+    //
     function format(val, options) {
       if (options) {
         validateOptions(options);
@@ -1527,6 +1525,23 @@ var _Immutable = (() => {
     prettyFormatExports.plugins = plugins;
     var _default = format;
     prettyFormatExports.default = _default;
-    window.prettyFormat = prettyFormatExports;
+   
+    global.prettyFormat = prettyFormatExports;
+   
     return prettyFormatExports;
-})();
+   
+})(global ?? window);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
