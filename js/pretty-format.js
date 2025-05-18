@@ -1523,6 +1523,6 @@ var _Immutable = (() => {
     prettyFormatExports.plugins = plugins;
     var _default = format;
     prettyFormatExports.default = _default;
-    
+    window.prettyFormat = prettyFormatExports;
     return prettyFormatExports;
 })();
